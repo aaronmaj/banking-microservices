@@ -9,6 +9,6 @@ import java.time.LocalDate;
 public class Account {
     @Id
     private Integer id;
-    private String accountName;
+    private String name;
     private LocalDate created;
 }
