@@ -11,5 +11,6 @@
 
     <modules>
         <module>banking-core</module>
+        <module>account-service</module>
     </modules>
 </project>
