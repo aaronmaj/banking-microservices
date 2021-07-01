@@ -1,12 +1,11 @@
-package com.banking.core;
+package com.banking.clients;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BankingdbApplication {
-
+public class ClientServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BankingdbApplication.class,args);
+        SpringApplication.run(ClientServiceApplication.class, args);
     }
 }

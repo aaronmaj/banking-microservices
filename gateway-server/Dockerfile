@@ -1,7 +1,7 @@
 # Use an official OpenJDK runtime as a parent image
 FROM openjdk:jdk11-openjdk-slim as builder
 RUN mkdir -p /app/source
-COPY . /app/source
+COPY ../account-service /app/source
 
 # Set the working directory to /app/source
 WORKDIR /app/source
