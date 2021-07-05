@@ -1,0 +1,9 @@
+node{
+  stage('scm checkout'){
+    git 'https://github.com/aaronmaj/banking-services/new/main/account-service'
+  }
+  stage('build package'){
+    def mvnHome = tool name: 'maven-3', type: 'maven'
+    sh "${mvnHome}/bin/mvn clean package}"
+  }
+}
