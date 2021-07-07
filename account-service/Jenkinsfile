@@ -1,5 +1,5 @@
 node{
-  stage('scm checkout'){
+  stage('SCM Checkout'){
     git 'https://github.com/aaronmaj/banking-services/new/main/account-service'
   }
   stage('build package'){
