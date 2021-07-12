@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -14,14 +13,15 @@
     <groupId>com.banking</groupId>
     <artifactId>account-service</artifactId>
     <packaging>jar</packaging>
-    <name>account-service</name>
-    <description>Account micro service</description>
+    <name>Account Service</name>
+    <description>Openbank Account Service</description>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <docker.image.prefix>banking</docker.image.prefix>
+        <docker.image.prefix>openbank</docker.image.prefix>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <model.mapper.version>2.4.4</model.mapper.version>
     </properties>
 
     <dependencies>
@@ -29,6 +29,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
@@ -42,12 +47,16 @@
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -58,11 +67,6 @@
             <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.r2dbc</groupId>
-            <artifactId>r2dbc-postgresql</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
@@ -71,6 +75,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>${model.mapper.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.banking</groupId>
+            <artifactId>core-dto</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -93,7 +107,7 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
-                <accountType>pom</accountType>
+                <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>

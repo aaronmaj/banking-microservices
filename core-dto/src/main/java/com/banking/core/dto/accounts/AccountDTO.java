@@ -1,13 +1,13 @@
 package com.banking.core.dto.accounts;
 
 
-import lombok.Data;
 import lombok.Getter;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @Getter
-public class AccountDto {
+public class AccountDTO extends RepresentationModel<AccountDTO> {
 
     private final Integer id;
     private final String accountNumber;
@@ -17,9 +17,9 @@ public class AccountDto {
     private final AccountStatus accountStatus;
     private final AccountCategory accountCategory;
     private final double balance;
-    private final CustomerDto client;
+    private final CustomerDTO client;
 
-    private AccountDto(Builder builder) {
+    private AccountDTO(Builder builder) {
         this.id = builder.id;
         this.accountNumber = builder.accountNumber;
         this.accountName = builder.accountName;
@@ -35,7 +35,7 @@ public class AccountDto {
     public static class Builder {
         private Integer id;
         private final String accountNumber;
-        private final CustomerDto client;
+        private final CustomerDTO client;
         private String accountName;
         private LocalDate created;
         private AccountType accountType;
@@ -43,7 +43,7 @@ public class AccountDto {
         private AccountCategory accountCategory;
         private double balance;
 
-        public Builder(String accountNumber, CustomerDto client) {
+        public Builder(String accountNumber, CustomerDTO client) {
             this.accountNumber = accountNumber;
             this.client = client;
         }
@@ -83,8 +83,8 @@ public class AccountDto {
             return this;
         }
 
-        public AccountDto build() {
-            return new AccountDto(this);
+        public AccountDTO build() {
+            return new AccountDTO(this);
         }
     }
 

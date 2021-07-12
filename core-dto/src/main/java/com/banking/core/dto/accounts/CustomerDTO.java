@@ -1,12 +1,11 @@
 package com.banking.core.dto.accounts;
 
-import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
-public class CustomerDto {
+public class CustomerDTO {
     private final Integer id;
     private final String firstName;
     private final String lastName;
@@ -30,7 +29,7 @@ public class CustomerDto {
     private final String nationality;
     
 
-    private CustomerDto(Builder builder){
+    private CustomerDTO(Builder builder){
 
         this.id = builder.id;
         this.firstName =builder.firstName;
@@ -78,8 +77,8 @@ public class CustomerDto {
        private String contractPic;
        private String nationality;
 
-       public CustomerDto build(){
-           return new CustomerDto(this);
+       public CustomerDTO build(){
+           return new CustomerDTO(this);
        }
 
        public Builder withId(Integer id){
