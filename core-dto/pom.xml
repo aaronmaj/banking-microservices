@@ -9,12 +9,14 @@
         <version>2.5.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <version>1.0-SNAPSHOT</version>
 
     <groupId>com.banking</groupId>
-    <artifactId>data-transfer-objects</artifactId>
+    <artifactId>core-dto</artifactId>
     <packaging>jar</packaging>
-    <description>core data transfer objects</description>
+    <version>1.0-SNAPSHOT</version>
+    <name>Data transfer Objects</name>
+    <description>Core data transfer objects</description>
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>

@@ -38,7 +38,7 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
-                <accountType>pom</accountType>
+                <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>

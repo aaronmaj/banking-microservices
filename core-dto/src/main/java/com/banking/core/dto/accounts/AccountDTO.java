@@ -17,7 +17,7 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
     private final AccountStatus accountStatus;
     private final AccountCategory accountCategory;
     private final double balance;
-    private final CustomerDTO client;
+    private final Integer clientId;
 
     private AccountDTO(Builder builder) {
         this.id = builder.id;
@@ -28,14 +28,14 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
         this.accountStatus = builder.accountStatus;
         this.accountCategory = builder.accountCategory;
         this.balance = builder.balance;
-        this.client = builder.client;
+        this.clientId = builder.clientId;
     }
 
 
     public static class Builder {
         private Integer id;
-        private final String accountNumber;
-        private final CustomerDTO client;
+        private String accountNumber;
+        private Integer clientId;
         private String accountName;
         private LocalDate created;
         private AccountType accountType;
@@ -43,13 +43,21 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
         private AccountCategory accountCategory;
         private double balance;
 
-        public Builder(String accountNumber, CustomerDTO client) {
-            this.accountNumber = accountNumber;
-            this.client = client;
+        public Builder() {
+
         }
 
-        public Builder withId(Integer id) {
-            this.id = id;
+        public Builder(String accountNumber) {
+            this.accountNumber = accountNumber;
+        }
+
+        public Builder withClientId(Integer clientId) {
+            this.clientId = clientId;
+            return this;
+        }
+
+        public Builder withAccountNumber(String accountNumber) {
+            this.accountNumber = accountNumber;
             return this;
         }
 
@@ -57,7 +65,6 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
             this.accountName = accountName;
             return this;
         }
-
         public Builder withDateCreated(LocalDate created) {
             this.created = created;
             return this;
@@ -86,6 +93,8 @@ public class AccountDTO extends RepresentationModel<AccountDTO> {
         public AccountDTO build() {
             return new AccountDTO(this);
         }
+
+
     }
 
 }
