@@ -1,0 +1,22 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: eureka-server
+eureka:
+  instance:
+    hostname: localhost
+
+  client:
+    register-with-eureka: false #Tells the Config Server to not register with the Eureka service ...
+    fetch-registry: false #... and to not cache registry information locally
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    waitTimeInMsWhenSyncEmpty: 0  # Sets the initial time to wait before the server takes requests
+    response-cache-update-interval-ms: 5000
+
+management:
+  endpoint:
+    health:
+      show-details: always

@@ -1,0 +1,31 @@
+server:
+  port: 8088
+
+spring:
+  profiles:
+    active: native #Native sets the Spring profile associated with the backend repository (filesystem)
+  cloud:
+    config:
+      server: #Local configuration: This locations can either of classpath or locations in the filesystem.
+        native:
+          #Reads from a specific filesystem folder
+          #search-locations:file://${HOME}/config-repo/spring-cloud-config
+          #search-locations: classpath:/config  if the configuration files are under /resources/config folder
+          search-locations: classpath:/config
+        #git:
+          #uri: https://github.com/aaronmaj/banking-configs.git
+          #search-paths: account-service
+
+logging:
+  level:
+    root: info
+
+#Enable all Spring Boot Actuator endpoints.
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: "*"
