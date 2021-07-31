@@ -19,6 +19,7 @@ spring:
 logging:
   level:
     root: info
+    com.banking: debug
 
 #Enable all Spring Boot Actuator endpoints.
 management:
