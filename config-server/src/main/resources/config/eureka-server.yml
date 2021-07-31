@@ -6,7 +6,7 @@ spring:
 eureka:
   instance:
     hostname: localhost
-
+    preferIpAddress: true
   client:
     register-with-eureka: false #Tells the Config Server to not register with the Eureka service ...
     fetch-registry: false #... and to not cache registry information locally

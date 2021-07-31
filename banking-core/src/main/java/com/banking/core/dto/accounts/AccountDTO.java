@@ -16,7 +16,7 @@ public class AccountDTO {
     private final AccountStatus accountStatus;
     private final AccountCategory accountCategory;
     private final double balance;
-    private final Integer clientId;
+    private final Integer customerId;
 
     private AccountDTO(Builder builder) {
         this.id = builder.id;
@@ -27,7 +27,7 @@ public class AccountDTO {
         this.accountStatus = builder.accountStatus;
         this.accountCategory = builder.accountCategory;
         this.balance = builder.balance;
-        this.clientId = builder.clientId;
+        this.customerId = builder.clientId;
     }
 
 

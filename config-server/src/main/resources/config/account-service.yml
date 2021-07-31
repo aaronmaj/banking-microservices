@@ -19,7 +19,10 @@ spring:
 
   database:
     driverClassName: org.postgresql.Driver
-
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
 management:
   endpoints:
     web:
@@ -35,3 +38,12 @@ management:
     diskspace:
       enabled: true
 
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eurekaserver:8761/eureka/

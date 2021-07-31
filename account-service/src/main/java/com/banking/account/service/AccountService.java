@@ -2,7 +2,9 @@ package com.banking.account.service;
 
 import com.banking.account.model.Account;
 import com.banking.account.repository.AccountRepository;
+import com.banking.account.service.client.CustomerFeignClient;
 import com.banking.core.dto.accounts.AccountDTO;
+import com.banking.core.dto.accounts.CustomerDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,16 @@ public class AccountService {
     MessageSource messages;
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
+    private final CustomerFeignClient feignClient;
 
     public AccountDTO findById(Integer id) {
         return convertToDTO(accountRepository.findById(id).orElse(null));
     }
-    public AccountDTO findByAccountNumber(String accountNumber) {
+
+    public AccountDTO getAccountByNumber(String accountNumber) {
         return convertToDTO(accountRepository.findByAccountNumber(accountNumber).get());
     }
+
     public List<AccountDTO> findAll() {
         return StreamSupport
                 .stream(accountRepository.findAll().spliterator(), false)
@@ -52,6 +57,13 @@ public class AccountService {
         return responseMessage;
     }
 
+    public CustomerDTO getCustomerByAccount(String accountNumber) {
+        Optional<Account> optAccount = accountRepository.findByAccountNumber(accountNumber);
+        if (optAccount.isPresent())
+            return getCustomer(optAccount.get().getCustomerId());
+        return null;
+    }
+
     private AccountDTO convertToDTO(Account account) {
         return modelMapper.map(account, AccountDTO.class);
     }
@@ -59,5 +71,9 @@ public class AccountService {
     public Account convertToEntity(AccountDTO accountDTO) {
         Account account = modelMapper.map(accountDTO, Account.class);
         return account;
+    }
+
+    private CustomerDTO getCustomer(String cuctomerId) {
+        return feignClient.getCustomer(cuctomerId);
     }
 }

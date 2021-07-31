@@ -13,6 +13,3 @@ spring:
         maxInterval: 10000
         maxAttempts: 20
       uri: http://localhost:8088
-    loadbalancer:
-      ribbon:
-        enabled: false # Ribbon is still the default client-side loadbalancer, desable it

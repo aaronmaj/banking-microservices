@@ -30,6 +30,10 @@ public class Account {
     private AccountCategory accountCategory;
     private double balance;
     @Column(name = "client_id")
-    private Integer clientId;
+    private String customerId;
+    private Integer numberOfSignatories;
+    @ManyToOne
+    private Branch branch;
+
 
 }

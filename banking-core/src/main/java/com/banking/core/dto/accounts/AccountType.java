@@ -33,6 +33,17 @@ public enum AccountType {
         public double calculateInterests(double amount, int period) {
             return 0;
         }
+    },
+    CERTIFICATE_OF_DEPOSIT(0.0,0.0){
+        @Override
+        public double calculateFees(String operation, double amount) {
+            return 0;
+        }
+
+        @Override
+        public double calculateInterests(double amount, int period) {
+            return 0;
+        }
     };
 
     private final double fees;
