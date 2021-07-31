@@ -1,7 +1,7 @@
 springdoc:
   swagger-ui.path: /openapi/swagger-ui.html
   api-docs.path: /openapi/v3/api-docs
-  packagesToScan: se.magnus.microservices.composite.product
+  packagesToScan: com.banking.core.*
   pathsToMatch: /**
 
 api:
@@ -9,7 +9,7 @@ api:
   common:
     version: 1.0.0
     title: Account Service API
-    description: Description of the API...
+    description: Account microservice
     termsOfService: MY TERMS OF SERVICE
     license: MY LICENSE
     licenseUrl: MY LICENSE URL
