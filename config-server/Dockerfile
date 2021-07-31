@@ -19,4 +19,6 @@ COPY --from=builder ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=builder ${DEPENDENCY}/META-INF  /app/META-INF
 COPY --from=builder ${DEPENDENCY}/BOOT-INF/classes /app/classes
 
+EXPOSE 8761
+
 ENTRYPOINT [ "java","-cp","app:app/lib/*","com.banking.configserver.ConfigServerApplication" ]

@@ -25,6 +25,7 @@
         <app.profiles>dev,test,staging,prod,native</app.profiles>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
         <model.mapper.version>2.4.4</model.mapper.version>
+        <springdoc.openapi.version>1.5.10</springdoc.openapi.version>
     </properties>
 
     <dependencies>
@@ -98,6 +99,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-common</artifactId>
+            <version>1.5.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-webflux-ui</artifactId>
+            <version>${springdoc.openapi.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>

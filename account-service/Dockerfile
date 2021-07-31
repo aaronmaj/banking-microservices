@@ -19,6 +19,7 @@ FROM openjdk:11-slim
 VOLUME /tmp
 
 #Copy unpackaged application to new container
+#To use from Spring Boot v2.3.0 or higher.
 ARG DEPENDENCY=/target/dependency
 COPY --from=builder ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=builder ${DEPENDENCY}/META-INF /app/META-INF
