@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.client.RestTemplate;
@@ -26,6 +27,7 @@ import java.util.Locale;
 @ConfigurationProperties(prefix = "banking.account")
 @Getter
 @Setter
+@ComponentScan(basePackages = {"com.banking.core.*", "com.banking.account.*"})
 public class ServiceConfig {
     private String property;
     @Value("${api.common.version}")

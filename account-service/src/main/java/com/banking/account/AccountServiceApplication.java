@@ -14,7 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
 //@EnableEurekaClient
 @EnableDiscoveryClient
 @EnableFeignClients
-@ComponentScan(basePackages = "com.banking.core.*")
 @RefreshScope //reloads custom Spring properties in the application configuration
 public class AccountServiceApplication {
 

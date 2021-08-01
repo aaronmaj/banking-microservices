@@ -6,6 +6,8 @@ import com.banking.account.service.AccountService;
 import com.banking.core.dto.accounts.AccountDTO;
 import com.banking.core.dto.accounts.CustomerDTO;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,16 +18,16 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "v1/account", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/v1/accounts")
 public class AccountController {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
     private final AccountService accountService;
     private final MediaType mediaType = MediaType.APPLICATION_JSON;
 
 
     @GetMapping
     ResponseEntity<List<AccountDTO>> findAll() {
-
+        LOGGER.info("Fetching all accounts....");
         List<AccountDTO> accounts = this.accountService.findAll();
         return ResponseEntity.ok(accounts);
     }
@@ -50,10 +52,12 @@ public class AccountController {
          */
         return ResponseEntity.ok(accountDTO);
     }
+    /*
     @GetMapping(value = "/{accountNumber}/customer")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable("accountNumber")String acvountNumber){
         return ResponseEntity.ok(accountService.getCustomerByAccount(acvountNumber));
     }
+     */
     @PostMapping
     public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
         Account account = accountService.convertToEntity(accountDTO);

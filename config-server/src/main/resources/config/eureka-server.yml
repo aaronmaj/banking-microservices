@@ -13,7 +13,7 @@ eureka:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
-    waitTimeInMsWhenSyncEmpty: 0  # Sets the initial time to wait before the server takes requests
+    wait-time-in-ms-when-sync-empty: 0  # Sets the initial time to wait before the server takes requests
     response-cache-update-interval-ms: 5000
 
 management:

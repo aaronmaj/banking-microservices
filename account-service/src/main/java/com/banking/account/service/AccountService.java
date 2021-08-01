@@ -23,7 +23,7 @@ public class AccountService {
     MessageSource messages;
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
-    private final CustomerFeignClient feignClient;
+    //private final CustomerFeignClient feignClient;
 
     public AccountDTO findById(Integer id) {
         return convertToDTO(accountRepository.findById(id).orElse(null));
@@ -56,14 +56,14 @@ public class AccountService {
         responseMessage = String.format(messages.getMessage("account.delete.message", null, null), accountNumber);
         return responseMessage;
     }
-
+/*
     public CustomerDTO getCustomerByAccount(String accountNumber) {
         Optional<Account> optAccount = accountRepository.findByAccountNumber(accountNumber);
         if (optAccount.isPresent())
             return getCustomer(optAccount.get().getCustomerId());
         return null;
     }
-
+*/
     private AccountDTO convertToDTO(Account account) {
         return modelMapper.map(account, AccountDTO.class);
     }
@@ -72,8 +72,10 @@ public class AccountService {
         Account account = modelMapper.map(accountDTO, Account.class);
         return account;
     }
-
+/*
     private CustomerDTO getCustomer(String cuctomerId) {
         return feignClient.getCustomer(cuctomerId);
     }
+
+ */
 }
