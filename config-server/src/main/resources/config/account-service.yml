@@ -82,17 +82,18 @@ management:
       #base-path: /
       exposure:
         include: "*"
-    enabled-by-default: true
-  #endpoint:
-    #health:
-      #enabled: true
-      #show-details: always
-  #health:
-    #db:
-      #enabled: false
-    #diskspace:
-      #enabled: true
-
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  health:
+    db:
+      enabled: false
+    diskspace:
+      enabled: true
+    circuitbreakers:
+      enabled: true
 
 eureka:
   instance:
@@ -103,7 +104,63 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-#---
-#spring.config.activate.on-profile: docker
 
-#server.port: 8080
+resilience4j.circuitbreaker:
+  instances:
+    accountService:
+      allowHealthIndicatorToFail: false
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 5
+      ringBufferSizeInHalfOpenState: 3
+      waitDurationInOpenState: 10s
+      failureRateThreshold: 50
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+        - java.io.IOException
+        - java.util.concurrent.TimeoutException
+        - org.springframework.web.client.ResourceAccessException
+    customerService:
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 6
+      ringBufferSizeInHalfOpenState: 4
+      waitDurationInOpenState: 20s
+      failureRateThreshold: 60
+
+resilience4j.timelimiter:
+  instances:
+    accountService:
+      timeoutDuration: 2s
+
+resilience4j.ratelimiter:
+  instances:
+    accountService:
+      limitForPeriod: 5
+      limitRefreshPeriod: 5000
+      timeoutDuration: 1000ms
+
+resilience4j.retry:
+  instances:
+    retryLicenseService:
+      maxRetryAttempts: 5
+      waitDuration: 10000
+      retry-exceptions:
+        - java.util.concurrent.TimeoutException
+
+resilience4j.bulkhead:
+  instances:
+    bulkheadLicenseService:
+      maxWaitDuration: 2ms
+      maxConcurrentCalls: 20
+
+
+resilience4j.thread-pool-bulkhead:
+  instances:
+    bulkheadLicenseService:
+      maxThreadPoolSize: 1
+      coreThreadPoolSize: 1
+      queueCapacity: 1
+
+#---
+spring.config.activate.on-profile: docker
+
+server.port: 8080

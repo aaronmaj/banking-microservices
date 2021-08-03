@@ -52,12 +52,12 @@ public class AccountController {
          */
         return ResponseEntity.ok(accountDTO);
     }
-    /*
+
     @GetMapping(value = "/{accountNumber}/customer")
     public ResponseEntity<CustomerDTO> getCustomer(@PathVariable("accountNumber")String acvountNumber){
         return ResponseEntity.ok(accountService.getCustomerByAccount(acvountNumber));
     }
-     */
+
     @PostMapping
     public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
         Account account = accountService.convertToEntity(accountDTO);
