@@ -9,7 +9,7 @@ The project Use Java 11 and is built as a Maven multi-module project
 1. A core module (`banking-core`)
 2. Account service module (`account-service`)
 3. Customer service module (`customer-service`)
-4. Transaction service module
+4. Transaction service module(`transaction-service`)
 5. Configuration server (`config-server`)
 6. A Discovery server for service registry and client Load-balancing (`eureka-server`)
-7. A Gateway server (`gateway-server`)
+7. An API Gateway server (`gateway-server`)
