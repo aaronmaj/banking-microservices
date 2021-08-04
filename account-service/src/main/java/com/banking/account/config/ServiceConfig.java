@@ -29,7 +29,7 @@ import java.util.Locale;
 @Setter
 public class ServiceConfig {
     private String property;
-    @Value("${api.common.version}")
+   /* @Value("${api.common.version}")
     String apiVersion;
     @Value("${api.common.title}")
     String apiTitle;
@@ -70,7 +70,7 @@ public class ServiceConfig {
                         .description(apiExternalDocDesc)
                         .url(apiExternalDocUrl));
     }
-
+*/
     @Bean
     @LoadBalanced
     public RestTemplate restTemplate() {
