@@ -3,7 +3,7 @@
 ## Description
 
 This projects et of microservices with `Spring Boot`,`Docker`, `Reactive Spring Boot`, `ReactJs` and `Javascript`. \
-The project use `Java 11` and is based on `Spring Boot 2.5.3` and `Spring Cloud 2020.0.3`.
+The project use `Java 11` and is based on `Spring Boot 2.5.3` and `Spring Cloud 2020.0.3`.\
 It is built as a Maven multi-module project.
 
 ## List of modules:
