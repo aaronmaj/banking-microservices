@@ -76,24 +76,13 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
-management:
-  endpoints:
-    web:
-      #base-path: /
-      exposure:
-        include: "*"
-    enabled-by-default: false
-  endpoint:
-    health:
-      enabled: true
-      show-details: always
-  health:
-    db:
-      enabled: false
-    diskspace:
-      enabled: true
-    circuitbreakers:
-      enabled: true
+
+management.endpoints.web.include: *
+management.endpoints.enabled-by-default: false
+management.endpoint.health.enabled: true
+management.endpoint.health.show-details: always
+management.health.circuitbreakers.enabled: true
+management.health.ratelimiters.enabled: true
 
 eureka:
   instance:
@@ -107,7 +96,7 @@ eureka:
 
 resilience4j.circuitbreaker:
   instances:
-    accountService:
+    detailService:
       allowHealthIndicatorToFail: false
       registerHealthIndicator: true
       ringBufferSizeInClosedState: 5
@@ -128,19 +117,19 @@ resilience4j.circuitbreaker:
 
 resilience4j.timelimiter:
   instances:
-    accountService:
+    detailService:
       timeoutDuration: 2s
 
 resilience4j.ratelimiter:
   instances:
-    accountService:
+    detailService:
       limitForPeriod: 5
       limitRefreshPeriod: 5000
       timeoutDuration: 1000ms
 
 resilience4j.retry:
   instances:
-    retryLicenseService:
+    retryDetailService:
       maxRetryAttempts: 5
       waitDuration: 10000
       retry-exceptions:
@@ -148,14 +137,14 @@ resilience4j.retry:
 
 resilience4j.bulkhead:
   instances:
-    bulkheadLicenseService:
+    bulkheadDetailService:
       maxWaitDuration: 2ms
       maxConcurrentCalls: 20
 
 
 resilience4j.thread-pool-bulkhead:
   instances:
-    bulkheadLicenseService:
+    bulkheadDetailService:
       maxThreadPoolSize: 1
       coreThreadPoolSize: 1
       queueCapacity: 1
