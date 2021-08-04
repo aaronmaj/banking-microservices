@@ -1,4 +1,4 @@
-package com.banking.core.dto.accounts;
+package com.banking.core.dto.account;
 
 
 import lombok.Getter;

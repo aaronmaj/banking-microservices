@@ -1,2 +1,4 @@
-package com.banking.core.processor;public class PersonalDetailsProcessor {
+package com.banking.core.processor;
+
+public class PersonalDetailsProcessor {
 }

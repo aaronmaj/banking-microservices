@@ -1,7 +1,7 @@
 package com.banking.core.dto.transactions;
 
 
-import com.banking.core.dto.accounts.AccountDTO;
+import com.banking.core.dto.account.AccountDTO;
 import lombok.Data;
 
 import java.time.LocalDate;

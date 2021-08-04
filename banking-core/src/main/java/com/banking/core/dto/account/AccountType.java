@@ -1,4 +1,4 @@
-package com.banking.core.dto.accounts;
+package com.banking.core.dto.account;
 
 public enum AccountType {
     CHECKING(0.05, 0.0) {
