@@ -1,15 +1,15 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:jdk11-openjdk-slim as builder
-RUN mkdir -p /app/source
-COPY ../account-service /app/source
+FROM adoptopenjdk:11-jre-hotspot as builder
+WORKDIR extracted
+ADD ./build/libs/*.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
 
-# Create /app/source directory
-# Set the working directory to /app/source
-WORKDIR /app/source
-RUN ./mvn clean package
+FROM adoptopenjdk:11-jre-hotspot
+WORKDIR application
+COPY --from=builder extracted/dependencies/ ./
+COPY --from=builder extracted/spring-boot-loader/ ./
+COPY --from=builder extracted/snapshot-dependencies/ ./
+COPY --from=builder extracted/application/ ./
 
-# Copy the jar into the container at /app
-FROM builder
-COPY --from=builder /app/source/target/*.jar /app
 EXPOSE 8080
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-jar", "/app/account-service.jar"]
+
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]

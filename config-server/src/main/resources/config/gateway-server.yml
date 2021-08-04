@@ -1,0 +1,50 @@
+server:
+  port: 8222
+
+spring:
+  cloud:
+    loadbalancer.ribbon.enabled: false
+    gateway:
+      #discovery.locator:
+        #enabled: true  # Use the  automated routes created with the Eureka service ID
+        #lowerCaseServiceId: true
+      routes:
+      - id: eureka-server
+        uri: http://${app.eureka-server}:8761
+        predicates:
+        - Path=/eureka/{segment}
+        filters:
+        - SetPath=/eureka/{segment}
+
+      - id: account-service
+        uri: lb://account-service
+        predicates:
+        - Path=/account/**
+        filters:
+        - RewritePath=/account/(?<path>.*), /$\{path}
+
+app.eureka-server: localhost
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${app.eureka-server}:8761/eureka/
+    initialInstanceInfoReplicationIntervalSeconds: 5
+    registryFetchIntervalSeconds: 5
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 5
+
+management.endpoint.health.show-details: "ALWAYS"
+management.endpoints.web.exposure.include: "*"
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
+    org.springframework.cloud.gateway: TRACE
+
+---
+spring.config.activate.on-profile: docker
+
+app.eureka-server: eureka
