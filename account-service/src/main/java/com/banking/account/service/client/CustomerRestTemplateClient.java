@@ -1,6 +1,6 @@
 package com.banking.account.service.client;
 
-import com.banking.core.dto.accounts.CustomerDTO;
+import com.banking.core.dto.customer.CustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;

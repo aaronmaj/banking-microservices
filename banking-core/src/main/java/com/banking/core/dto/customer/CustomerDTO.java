@@ -1,4 +1,4 @@
-package com.banking.core.dto.accounts;
+package com.banking.core.dto.account;
 
 import lombok.Getter;
 
@@ -16,7 +16,7 @@ public class CustomerDTO {
     private final String district;
     private final String city;
     private final String idNumber;
-    private final String idType;
+    private final IdType idType;
     private final String country;
     private final String idDeliveryDate;
     private final Gender gender;
@@ -65,7 +65,7 @@ public class CustomerDTO {
        private String district;
        private String city;
        private String idNumber;
-       private String idType;
+       private IdType idType;
        private String country;
        private String idDeliveryDate;
        private Gender gender;
@@ -142,7 +142,7 @@ public class CustomerDTO {
             return this;
         }
 
-        public Builder withIdType(String idType){
+        public Builder withIdType(IdType idType){
             this.idType =idType;
             return this;
         }

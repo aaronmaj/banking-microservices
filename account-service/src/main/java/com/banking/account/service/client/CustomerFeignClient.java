@@ -1,6 +1,6 @@
 package com.banking.account.service.client;
 
-import com.banking.core.dto.accounts.CustomerDTO;
+import com.banking.core.dto.customer.CustomerDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

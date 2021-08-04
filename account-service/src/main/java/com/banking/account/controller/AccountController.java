@@ -3,9 +3,10 @@ package com.banking.account.controller;
 
 import com.banking.account.model.Account;
 import com.banking.account.service.AccountService;
-import com.banking.core.dto.accounts.AccountDTO;
-import com.banking.core.dto.accounts.CustomerDTO;
+import com.banking.core.dto.account.AccountDTO;
+import com.banking.core.dto.customer.CustomerDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -53,9 +54,10 @@ public class AccountController {
         return ResponseEntity.ok(accountDTO);
     }
 
+    @SneakyThrows
     @GetMapping(value = "/{accountNumber}/customer")
-    public ResponseEntity<CustomerDTO> getCustomer(@PathVariable("accountNumber")String acvountNumber){
-        return ResponseEntity.ok(accountService.getCustomerByAccount(acvountNumber));
+    public ResponseEntity<CustomerDTO> getCustomerDetails(@PathVariable("accountNumber")String accountNumber){
+        return ResponseEntity.ok(accountService.getPersonalDetails(accountNumber));
     }
 
     @PostMapping

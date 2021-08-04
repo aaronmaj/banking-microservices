@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
-@Table(name= "accounts")
+@Table(name = "accounts")
 @Entity
 public class Account {
     @Id
@@ -29,7 +29,11 @@ public class Account {
     @Enumerated(EnumType.ORDINAL)
     private AccountCategory accountCategory;
     private double balance;
-    @Column(name = "client_id")
+    @Column(name = "available_balance")
+    private double availableBalance;
+    @Column(name = "current_balance")
+    private double currentBalance;
+    @Column(name = "customer_id")
     private String customerId;
     private Integer numberOfSignatories;
     @ManyToOne

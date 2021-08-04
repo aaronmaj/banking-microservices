@@ -3,23 +3,34 @@ package com.banking.account.service;
 import com.banking.account.model.Account;
 import com.banking.account.repository.AccountRepository;
 import com.banking.account.service.client.CustomerFeignClient;
-import com.banking.core.dto.accounts.AccountDTO;
-import com.banking.core.dto.accounts.CustomerDTO;
+import com.banking.core.dto.account.AccountDTO;
+import com.banking.core.dto.customer.CustomerDTO;
+import com.banking.core.dto.account.AccountDTO;
+import com.banking.core.dto.customer.PersonalDetails;
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
+import static io.github.resilience4j.bulkhead.annotation.Bulkhead.Type.THREADPOOL;
 
 @Service
 @RequiredArgsConstructor
 public class AccountService {
+    public static final Logger logger = LoggerFactory.getLogger(AccountService.class);
     @Autowired
     MessageSource messages;
     private final AccountRepository accountRepository;
@@ -58,21 +69,27 @@ public class AccountService {
         return responseMessage;
     }
 
-    @CircuitBreaker(name = "accountService")
-    public CustomerDTO getCustomerByAccount(String accountNumber) {
-        Optional<Account> optAccount = accountRepository.findByAccountNumber(accountNumber);
-        if (optAccount.isPresent())
-            return getCustomer(optAccount.get().getCustomerId());
-        return null;
+    @CircuitBreaker(name = "detailService", fallbackMethod = "buildFallbackDetails")
+    @RateLimiter(name = "detailService", fallbackMethod = "buildFallbackDetails")
+    @Retry(name = "retryDetailService", fallbackMethod = "buildFallbackDetails")
+    @Bulkhead(name = "bulkheadDetailService", type= THREADPOOL, fallbackMethod = "buildFallbackDetails")
+    public CustomerDTO getPersonalDetails(String accountNumber) throws TimeoutException
+    {
+
+        return getCustomer(accountRepository.findByAccountNumber(accountNumber).get().getCustomerId());
+
     }
 
-    @CircuitBreaker(name = "cusromerService")
+    @CircuitBreaker(name = "customerService")
     private CustomerDTO getCustomer(String cuctomerId) {
         return feignClient.getCustomer(cuctomerId);
     }
 
-    private CustomerDTO buildFallbackCustomer(Throwable t){
-        return null;
+    private PersonalDetails buildFallbackDetails(String customerId, Throwable t){
+
+        PersonalDetails details = new PersonalDetails();
+
+        return details;
     }
     private AccountDTO convertToDTO(Account account) {
         return modelMapper.map(account, AccountDTO.class);

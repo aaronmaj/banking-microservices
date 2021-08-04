@@ -27,7 +27,6 @@ import java.util.Locale;
 @ConfigurationProperties(prefix = "banking.account")
 @Getter
 @Setter
-@ComponentScan(basePackages = {"com.banking.core.*", "com.banking.account.*"})
 public class ServiceConfig {
     private String property;
     @Value("${api.common.version}")

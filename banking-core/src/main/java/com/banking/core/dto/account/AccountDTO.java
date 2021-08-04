@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Getter
 public class AccountDTO {
 
-    private final Integer id;
     private final String accountNumber;
     private final String accountName;
     private final LocalDate created;
@@ -16,10 +15,11 @@ public class AccountDTO {
     private final AccountStatus accountStatus;
     private final AccountCategory accountCategory;
     private final double balance;
-    private final Integer customerId;
+    private final String customerId;
+    private final Currency currency;
 
     private AccountDTO(Builder builder) {
-        this.id = builder.id;
+
         this.accountNumber = builder.accountNumber;
         this.accountName = builder.accountName;
         this.created = builder.created;
@@ -27,20 +27,22 @@ public class AccountDTO {
         this.accountStatus = builder.accountStatus;
         this.accountCategory = builder.accountCategory;
         this.balance = builder.balance;
-        this.customerId = builder.clientId;
+        this.customerId = builder.customerId;
+        this.currency = builder.currency;
     }
 
 
     public static class Builder {
-        private Integer id;
+
         private String accountNumber;
-        private Integer clientId;
+        private String customerId;
         private String accountName;
         private LocalDate created;
         private AccountType accountType;
         private AccountStatus accountStatus;
         private AccountCategory accountCategory;
         private double balance;
+        private Currency currency;
 
         public Builder() {
 
@@ -50,8 +52,8 @@ public class AccountDTO {
             this.accountNumber = accountNumber;
         }
 
-        public Builder withClientId(Integer clientId) {
-            this.clientId = clientId;
+        public Builder withClientId(String customerId) {
+            this.customerId = customerId;
             return this;
         }
 
@@ -88,7 +90,10 @@ public class AccountDTO {
             this.balance = balance;
             return this;
         }
-
+        public Builder withCurrency(Currency currency) {
+            this.currency = currency;
+            return this;
+        }
         public AccountDTO build() {
             return new AccountDTO(this);
         }
