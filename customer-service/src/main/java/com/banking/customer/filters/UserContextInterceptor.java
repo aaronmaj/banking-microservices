@@ -1,4 +1,4 @@
-package com.banking.account.filters;
+package com.banking.customer.filters;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

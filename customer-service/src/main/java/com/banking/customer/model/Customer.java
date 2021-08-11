@@ -3,19 +3,19 @@ package com.banking.customer.model;
 import com.banking.core.dto.customer.CustType;
 import com.banking.core.dto.customer.IdType;
 import com.banking.core.dto.customer.Gender;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
-
+@Data
 @Entity
 @Table(name = "customers")
 public class Customer {
     @Id
-    @GeneratedValue
-    private Integer id;
+    private String customerId;
     private String firstName;
     private String lastName;
     private String customerName;

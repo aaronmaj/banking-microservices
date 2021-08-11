@@ -1,4 +1,4 @@
-package com.banking.account.filters;
+package com.banking.customer.filters;
 
 import org.springframework.util.Assert;
 
