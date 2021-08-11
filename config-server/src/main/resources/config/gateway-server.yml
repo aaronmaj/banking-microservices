@@ -1,5 +1,5 @@
 server:
-  port: 8222
+  port: 8072
 
 spring:
   cloud:
@@ -22,6 +22,25 @@ spring:
         - Path=/account/**
         filters:
         - RewritePath=/account/(?<path>.*), /$\{path}
+        - RemoveRequestHeader= Cookie,Set-Cookie
+
+      - id: account-service-swagger-ui
+        uri: lb://account-service
+        predicates:
+        - Path=/openapi/**
+
+      - id: customer-service
+        uri: lb://customer-service
+        predicates:
+        - Path=/customer/**
+        filters:
+        - RewritePath=/customer/(?<path>.*), /$\{path}
+        - RemoveRequestHeader= Cookie,Set-Cookie
+
+      - id: account-service-swagger-ui
+        uri: lb://customer-service
+        predicates:
+        - Path=/openapi/**
 
 app.eureka-server: localhost
 
@@ -43,6 +62,7 @@ logging:
     root: INFO
     org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
     org.springframework.cloud.gateway: TRACE
+    com.banking: DEBUG
 
 ---
 spring.config.activate.on-profile: docker
