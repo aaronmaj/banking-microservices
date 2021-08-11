@@ -1,8 +1,10 @@
 package com.banking.account.service;
 
+import com.banking.account.filters.UserContextHolder;
 import com.banking.account.model.Account;
 import com.banking.account.repository.AccountRepository;
 import com.banking.account.service.client.CustomerFeignClient;
+import com.banking.account.service.client.CustomerRestTemplateClient;
 import com.banking.core.dto.account.AccountDTO;
 import com.banking.core.dto.customer.CustomerDTO;
 import com.banking.core.dto.account.AccountDTO;
@@ -35,7 +37,10 @@ public class AccountService {
     MessageSource messages;
     private final AccountRepository accountRepository;
     private final ModelMapper modelMapper;
-    private final CustomerFeignClient feignClient;
+    @Autowired
+    CustomerFeignClient feignClient;
+    @Autowired
+    CustomerRestTemplateClient customerRestClient;
 
     public AccountDTO findById(Integer id) {
         return convertToDTO(accountRepository.findById(id).orElse(null));
@@ -72,25 +77,24 @@ public class AccountService {
     @CircuitBreaker(name = "detailService", fallbackMethod = "buildFallbackDetails")
     @RateLimiter(name = "detailService", fallbackMethod = "buildFallbackDetails")
     @Retry(name = "retryDetailService", fallbackMethod = "buildFallbackDetails")
-    @Bulkhead(name = "bulkheadDetailService", type= THREADPOOL, fallbackMethod = "buildFallbackDetails")
-    public CustomerDTO getPersonalDetails(String accountNumber) throws TimeoutException
-    {
-
+    @Bulkhead(name = "bulkheadDetailService", type = THREADPOOL, fallbackMethod = "buildFallbackDetails")
+    public CustomerDTO getPersonalDetails(String accountNumber) throws TimeoutException {
+        logger.debug("getLicensesByOrganization Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         return getCustomer(accountRepository.findByAccountNumber(accountNumber).get().getCustomerId());
-
     }
 
     @CircuitBreaker(name = "customerService")
     private CustomerDTO getCustomer(String cuctomerId) {
-        return feignClient.getCustomer(cuctomerId);
+        return customerRestClient.getCustomer(cuctomerId);
     }
 
-    private PersonalDetails buildFallbackDetails(String customerId, Throwable t){
+    private PersonalDetails buildFallbackDetails(String customerId, Throwable t) {
 
         PersonalDetails details = new PersonalDetails();
 
         return details;
     }
+
     private AccountDTO convertToDTO(Account account) {
         return modelMapper.map(account, AccountDTO.class);
     }

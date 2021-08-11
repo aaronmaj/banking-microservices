@@ -9,10 +9,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -25,14 +27,14 @@ public class AccountController {
     private final AccountService accountService;
     private final MediaType mediaType = MediaType.APPLICATION_JSON;
 
-
+    @RolesAllowed({ "ADMIN", "USER" })
     @GetMapping
     ResponseEntity<List<AccountDTO>> findAll() {
         LOGGER.info("Fetching all accounts....");
         List<AccountDTO> accounts = this.accountService.findAll();
         return ResponseEntity.ok(accounts);
     }
-
+    @RolesAllowed({ "ADMIN", "USER" })
     @GetMapping(value = "/{accountNumber}")
     public ResponseEntity<AccountDTO> getAccount(@PathVariable("accountNumber") String accountNumber) {
         AccountDTO accountDTO = accountService.getAccountByNumber(accountNumber);
@@ -55,12 +57,14 @@ public class AccountController {
     }
 
     @SneakyThrows
+    @RolesAllowed({ "ADMIN", "USER" })
     @GetMapping(value = "/{accountNumber}/customer")
     public ResponseEntity<CustomerDTO> getCustomerDetails(@PathVariable("accountNumber")String accountNumber){
         return ResponseEntity.ok(accountService.getPersonalDetails(accountNumber));
     }
 
     @PostMapping
+    @RolesAllowed({ "ADMIN", "USER" })
     public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
         Account account = accountService.convertToEntity(accountDTO);
         return ResponseEntity.ok(accountService.createAccount(account));
@@ -71,6 +75,7 @@ public class AccountController {
         return ResponseEntity.ok(accountService.updateAccount(account));
     }
 
+    @RolesAllowed("ADMIN")
     //@RequestHeader(value = "Accept-Language",required = false)Locale locale)
     @DeleteMapping(value = "/{accountNumber}")
     public ResponseEntity<String> deleteAccount(@PathVariable("accountNumber") String accountNumber) {

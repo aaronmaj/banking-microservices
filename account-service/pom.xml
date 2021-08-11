@@ -27,6 +27,7 @@
         <model.mapper.version>2.4.4</model.mapper.version>
         <springdoc.openapi.version>1.5.10</springdoc.openapi.version>
         <resilience4j.version>1.7.0</resilience4j.version>
+        <keycloak.version>15.0.0</keycloak.version>
     </properties>
 
     <dependencies>
@@ -76,6 +77,14 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+        </dependency>
         <!--Circuit breaker-->
         <dependency>
             <groupId>io.github.resilience4j</groupId>
@@ -95,6 +104,15 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
+            <version>15.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <!--Persistence-->
         <dependency>
@@ -150,6 +168,12 @@
                 <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>${keycloak.version}</version>
+                <type>pom</type>
             </dependency>
         </dependencies>
     </dependencyManagement>
