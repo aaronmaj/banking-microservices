@@ -1,5 +1,6 @@
 package com.banking.customer.events.model;
 
+import com.banking.customer.model.Action;
 import lombok.Data;
 
 @Data

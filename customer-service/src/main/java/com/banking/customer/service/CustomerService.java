@@ -1,9 +1,8 @@
 package com.banking.customer.service;
 
-import com.banking.core.dto.account.AccountDTO;
 import com.banking.core.dto.customer.CustomerDTO;
 import com.banking.customer.events.source.SimpleSourceBean;
-import com.banking.customer.model.Action;
+import com.banking.customer.events.model.Action;
 import com.banking.customer.model.Customer;
 import com.banking.customer.repository.CustomerRepository;
 import org.modelmapper.ModelMapper;

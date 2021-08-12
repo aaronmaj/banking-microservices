@@ -2,7 +2,7 @@ package com.banking.customer.events.source;
 
 import com.banking.customer.events.model.CustomerChangeModel;
 import com.banking.customer.filters.UserContext;
-import com.banking.customer.model.Action;
+import com.banking.customer.events.model.Action;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.support.MessageBuilder;
