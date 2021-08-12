@@ -1,4 +1,4 @@
-package com.banking.customer.model;
+package com.banking.account.event.model;
 
 public enum Action {
     GET,
