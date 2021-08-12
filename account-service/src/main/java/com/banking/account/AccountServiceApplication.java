@@ -31,8 +31,8 @@ public class AccountServiceApplication {
     private final Logger logger = LoggerFactory.getLogger(AccountServiceApplication.class);
 
     @StreamListener(Sink.INPUT)
-    public void loggerSink(CustomerSChangeModel custChange) {
-        logger.debug("Received an {} event for organization id {}", custChange.getAction(), custChange.getCustomerId());
+    public void loggerSink(CustomerChangeModel custChange) {
+        logger.debug("Received an {} event for customer id {}", custChange.getAction(), custChange.getCustomerId());
     }
     public static void main(String[] args) {
         SpringApplication.run(AccountServiceApplication.class, args);
