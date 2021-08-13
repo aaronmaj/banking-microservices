@@ -5,9 +5,9 @@ import com.banking.account.model.Account;
 import com.banking.account.repository.AccountRepository;
 import com.banking.account.service.client.CustomerFeignClient;
 import com.banking.account.service.client.CustomerRestTemplateClient;
+import com.banking.account.utils.EntityUtils;
 import com.banking.core.dto.account.AccountDTO;
 import com.banking.core.dto.customer.CustomerDTO;
-import com.banking.core.dto.account.AccountDTO;
 import com.banking.core.dto.customer.PersonalDetails;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
@@ -15,6 +15,7 @@ import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,13 @@ public class AccountService {
     @Autowired
     MessageSource messages;
     private final AccountRepository accountRepository;
-    private final ModelMapper modelMapper;
+
     @Autowired
     CustomerFeignClient feignClient;
     @Autowired
     CustomerRestTemplateClient customerRestClient;
+    @Autowired
+    ModelMapper mapper;
 
     public AccountDTO findById(Integer id) {
         return convertToDTO(accountRepository.findById(id).orElse(null));
@@ -96,11 +99,12 @@ public class AccountService {
     }
 
     private AccountDTO convertToDTO(Account account) {
-        return modelMapper.map(account, AccountDTO.class);
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        return mapper.map(account, AccountDTO.class);
     }
 
-    public Account convertToEntity(AccountDTO accountDTO) {
-        Account account = modelMapper.map(accountDTO, Account.class);
+    private Account convertToEntity(AccountDTO accountDTO) {
+        Account account = mapper.map(accountDTO, Account.class);
         return account;
     }
 

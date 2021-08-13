@@ -13,7 +13,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 /**
  * @author Aaron MAJAMBO aaronmajb@gmail.com
@@ -30,11 +32,14 @@ public class AccountServiceApplication {
 
     private final Logger logger = LoggerFactory.getLogger(AccountServiceApplication.class);
 
+
+    public static void main(String[] args) {
+        SpringApplication.run(AccountServiceApplication.class, args);
+    }
+
     @StreamListener(Sink.INPUT)
     public void loggerSink(CustomerChangeModel custChange) {
         logger.debug("Received an {} event for customer id {}", custChange.getAction(), custChange.getCustomerId());
     }
-    public static void main(String[] args) {
-        SpringApplication.run(AccountServiceApplication.class, args);
-    }
+
 }
