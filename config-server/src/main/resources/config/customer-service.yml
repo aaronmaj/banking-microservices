@@ -1,7 +1,128 @@
+springdoc:
+  swagger-ui.path: /openapi/swagger-ui.html
+  api-docs.path: /openapi/v3/api-docs
+  packagesToScan: com.banking.core.*
+  pathsToMatch: /**
+
 server:
   port: 8082
+  error:
+    include-message: always
+  forward-headers-strategy: framework
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update # none
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+    database: POSTGRESQL
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    platform: postgres
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    continue-on-error: false
+
+  database:
+    driverClassName: org.postgresql.Driver
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+management.endpoints.web.exposure.include: "*"
+management.endpoints.enabled-by-default: false
+management.endpoint.health.enabled: true
+management.endpoint.health.show-details: always
+management.health.circuitbreakers.enabled: true
+management.health.ratelimiters.enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+resilience4j.circuitbreaker:
+  instances:
+    detailService:
+      allowHealthIndicatorToFail: false
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 5
+      ringBufferSizeInHalfOpenState: 3
+      waitDurationInOpenState: 10s
+      failureRateThreshold: 50
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+        - java.io.IOException
+        - java.util.concurrent.TimeoutException
+        - org.springframework.web.client.ResourceAccessException
+    customerService:
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 6
+      ringBufferSizeInHalfOpenState: 4
+      waitDurationInOpenState: 20s
+      failureRateThreshold: 60
+
+resilience4j.timelimiter:
+  instances:
+    detailService:
+      timeoutDuration: 2s
+
+resilience4j.ratelimiter:
+  instances:
+    detailService:
+      limitForPeriod: 5
+      limitRefreshPeriod: 5000
+      timeoutDuration: 1000ms
+
+resilience4j.retry:
+  instances:
+    retryDetailService:
+      maxRetryAttempts: 5
+      waitDuration: 10000
+      retry-exceptions:
+        - java.util.concurrent.TimeoutException
+
+resilience4j.bulkhead:
+  instances:
+    bulkheadDetailService:
+      maxWaitDuration: 2ms
+      maxConcurrentCalls: 20
+
+
+resilience4j.thread-pool-bulkhead:
+  instances:
+    bulkheadDetailService:
+      maxThreadPoolSize: 1
+      coreThreadPoolSize: 1
+      queueCapacity: 1
+
+keycloak.realm: banking-realm
+keycloak.auth-server-url: http://localhost:8180/auth
+keycloak.ssl-required: external
+keycloak.resource: banking-service #client ID
+keycloak.credentials.secret: 5e6920b5-9385-4095-89f8-dab6db37e986 #client secret
+keycloak.use-resource-role-mappings: true
+keycloak.bearer-only: true
 
 spring.cloud.stream.bindings.output.destination: custChangeTopic
 spring.cloud.stream.bindings.output.content-type: application/json
 spring.cloud.stream.kafka.binder.zkNodes: localhost
 spring.cloud.stream.kafka.binder.brokers: localhost
+
+---
+spring.config.activate.on-profile: docker
+
+server.port: 8082
+keycloak:
+  auth-server-url: http://keycloak:8180/auth
