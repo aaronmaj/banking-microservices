@@ -1,2 +1,4 @@
-package com.banking.operation.repository;public interface TransferRepository {
+package com.banking.operation.repository;
+
+public interface TransferRepository {
 }

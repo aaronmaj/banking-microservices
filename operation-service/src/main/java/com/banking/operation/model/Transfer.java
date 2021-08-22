@@ -1,2 +1,5 @@
-package com.banking.operation.model;public class Transfer {
+package com.banking.operation.model;
+
+public class Transfer {
+   
 }

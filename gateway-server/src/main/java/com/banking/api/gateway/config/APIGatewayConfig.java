@@ -1,2 +1,7 @@
-package com.banking.api.gateway.config;public class APIGatewayConfig {
+package com.banking.api.gateway.config;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class APIGatewayConfig {
 }

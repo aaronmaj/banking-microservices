@@ -1,2 +1,4 @@
-package com.banking.operation.service;public class TransferService {
+package com.banking.operation.service;
+
+public class TransferService {
 }

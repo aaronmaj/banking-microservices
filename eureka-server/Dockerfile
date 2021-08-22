@@ -1,5 +1,4 @@
 FROM adoptopenjdk:11-jre-hotspot as builder
-
 WORKDIR extracted
 ARG JAR_FILE
 ADD ${JAR_FILE}  app.jar
