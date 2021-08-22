@@ -1,0 +1,32 @@
+
+<encoder class="net.logstash.logback.encoder
+               .LoggingEventCompositeJsonEncoder">
+    <providers>
+        <mdc>
+<excludeMdcKeyName>X-B3-TraceId</excludeMdcKeyName> <excludeMdcKeyName>X-B3-SpanId</excludeMdcKeyName> <excludeMdcKeyName>X-B3-ParentSpanId</excludeMdcKeyName>
+        </mdc>
+        <context/>
+        <version/>
+        <logLevel/>
+        <loggerName/>
+        <pattern>
+            <pattern>
+                <omitEmptyFields>true</omitEmptyFields>
+                {
+                    "application": {
+                        version: "1.0"
+}, "trace": {
+} }
+    </pattern>
+</pattern>
+        <threadName/>
+        <message/>
+        <logstashMarkers/>
+        <arguments/>
+        <stackTrace/>
+    </providers>
+</encoder>
+"trace_id": "%mdc{traceId}",
+"span_id": "%mdc{spanId}",
+"parent_span_id": "%mdc{X-B3-ParentSpanId}",
+"exportable": "%mdc{spanExportable}"
