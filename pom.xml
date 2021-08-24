@@ -17,6 +17,6 @@
         <module>config-server</module>
         <module>customer-service</module>
         <module>authorization-server</module>
-        <module>operation-service</module>
+        <module>banking-service</module>
     </modules>
 </project>
