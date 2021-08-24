@@ -13,10 +13,17 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import brave.ScopedSpan;
+import brave.Tracer;
+
 @Component
 public class CustomerRestTemplateClient {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomerRestTemplateClient.class);
+
+    @Autowired
+    Tracer tracer;
+
     @Autowired
     ModelMapper mapper;
 
@@ -54,11 +61,16 @@ public class CustomerRestTemplateClient {
 
 
     private Customer checkRedisCache(String customerId) {
+        ScopedSpan newSpan = tracer.startScopedSpan("readCustomerDataFromRedis");
         try {
             return redisRepository.findById(customerId).orElse(null);
         } catch (Exception ex) {
             logger.error("Error encountered while trying to retrieve customer {} check Redis Cache.  Exception {}", customerId, ex);
             return null;
+        }finally {
+            newSpan.tag("peer.service", "redis");
+            newSpan.annotate("Client received");
+            newSpan.finish();
         }
     }
 

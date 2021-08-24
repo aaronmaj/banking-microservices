@@ -5,7 +5,6 @@ import com.banking.account.model.Account;
 import com.banking.account.repository.AccountRepository;
 import com.banking.account.service.client.CustomerFeignClient;
 import com.banking.account.service.client.CustomerRestTemplateClient;
-import com.banking.account.utils.EntityUtils;
 import com.banking.core.dto.account.AccountDTO;
 import com.banking.core.dto.customer.CustomerDTO;
 import com.banking.core.dto.customer.PersonalDetails;
@@ -60,12 +59,12 @@ public class AccountService {
                 .collect(Collectors.toList());
     }
 
-    public AccountDTO createAccount(Account account) {
-        return convertToDTO(accountRepository.save(account));
+    public AccountDTO createAccount(AccountDTO accountDTO) {
+        return convertToDTO(accountRepository.save(convertToEntity(accountDTO)));
     }
 
-    public AccountDTO updateAccount(Account account) {
-        return convertToDTO(accountRepository.save(account));
+    public AccountDTO updateAccount(AccountDTO accountDTO) {
+        return convertToDTO(accountRepository.save(convertToEntity(accountDTO)));
     }
 
     public String deleteAccount(String accountNumber) {

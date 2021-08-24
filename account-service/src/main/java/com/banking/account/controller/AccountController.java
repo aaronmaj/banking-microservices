@@ -66,13 +66,13 @@ public class AccountController {
     @PostMapping
     @RolesAllowed({ "ADMIN", "USER" })
     public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
-        Account account = accountService.convertToEntity(accountDTO);
-        return ResponseEntity.ok(accountService.createAccount(account));
+
+        return ResponseEntity.ok(accountService.createAccount(accountDTO));
     }
     @PutMapping
     public ResponseEntity<AccountDTO> updateAccount(@RequestBody AccountDTO accountDTO) {
-        Account account = accountService.convertToEntity(accountDTO);
-        return ResponseEntity.ok(accountService.updateAccount(account));
+
+        return ResponseEntity.ok(accountService.updateAccount(accountDTO));
     }
 
     @RolesAllowed("ADMIN")
