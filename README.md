@@ -5,8 +5,8 @@
 This project encompasses a set of microservices with `Spring Boot`,`Docker`, `Reactive Spring Boot`, `ReactJs` and `Javascript`. \
 The project uses `Java 11` and is based on `Spring Boot 2.5.3` and `Spring Cloud 2020.0.3`.\
 The project is a compilation of training material on `Web Services`  for microfinances adapted for a `Cloud Native` environment. \
-It is built as a Maven multi-module project.\
-\For the Web Services version (SOAP and REST) see:https://github.com/aaronmaj/banking-services-training
+It is built as a Maven multi-module project.\ 
+For the Web Services version (SOAP and REST) see:https://github.com/aaronmaj/banking-services-training
 
 ### List of modules:
 1. A core module (`banking-core`)
