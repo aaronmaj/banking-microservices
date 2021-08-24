@@ -35,5 +35,6 @@ public class Transaction {
     private String toAccount;
     private String description;
     private String reason;
+    private String operator;
 
 }
