@@ -32,8 +32,8 @@ public class Customer {
     private String occupation;
     private String phoneNumber;
     private String email;
-    private String photo;
-    private String idPic;
-    private String contractPic;
+    private byte[] photo;
+    private byte[] idPic;
+    private byte[] contractPic;
     private String nationality;
 }
