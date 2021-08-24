@@ -8,7 +8,7 @@ services:
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB:       "ostock_dev"
+      POSTGRES_DB:       "banking_dev"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
       - ./data.sql:/docker-entrypoint-initdb.d/2-data.sql
@@ -166,8 +166,8 @@ services:
     networks:
       - backend
   operationservice:
-    image: banking/operation-service:0.0.1-SNAPSHOT
-    container_name: operation-service
+    image: banking/banking-service:0.0.1-SNAPSHOT
+    container_name: banking-service
     environment:
       PROFILE: "dev"
       CONFIGSERVER_URI: "http://configserver:8088"
