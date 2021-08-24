@@ -1,4 +1,4 @@
 package com.banking.operation.service;
 
-public class TransferService {
+public class BankOperationService {
 }
