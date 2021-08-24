@@ -13,10 +13,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import brave.ScopedSpan;
+import brave.Tracer;
+
 @Service
 public class CustomerService {
 
     private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+    @Autowired
+    Tracer tracer;
 
     @Autowired
     CustomerRepository customerRepository;
@@ -34,8 +39,17 @@ public class CustomerService {
     }
 
     public CustomerDTO findById(String customerId) {
-        Optional<Customer> opt = customerRepository.findById(customerId);
-        simpleSourceBean.publishCustomerChange(Action.GET, customerId);
+        ScopedSpan newSpan = tracer.startScopedSpan("getCustDBCall");
+        Optional<Customer> opt = null;
+        try {
+            opt = customerRepository.findById(customerId);
+            simpleSourceBean.publishCustomerChange(Action.GET, customerId);
+
+        } finally {
+            newSpan.tag("peer.service", "postgres");
+            newSpan.annotate("Client received");
+            newSpan.finish();
+        }
         return (opt.isPresent()) ? convertToDTO(opt.get()) : null;
     }
 
