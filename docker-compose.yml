@@ -71,6 +71,7 @@ services:
           - "gateway"
   keycloak:
     image: wizzn/keycloak:14
+    container_name: keycloak
     restart: always
     environment:
       KEYCLOAK_VERSION: 6.0.1
