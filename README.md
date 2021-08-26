@@ -19,3 +19,7 @@ It is built as a `maven multi-modules project`.
 7. A Discovery server for service registry and client Load-balancing (`eureka-server`)
 8. An API Gateway server (`gateway-server`)
 9. A Fronted Web application (`ReactJS`) 
+
+### Contibutions
+
+If you are interested in making a contribution to this code base, you can  fork this repo into your account, make changes and open a pull-request. 

@@ -3,3 +3,18 @@ server:
   error:
     include-message: always
   forward-headers-strategy: framework
+
+app.banking-service: localhost
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bankin_gdb
+    username: dbtest
+    password: dbtest
+---
+spring.config.activate.on-profile: docker
+server.port: 8080
+app.banking-service: service

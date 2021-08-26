@@ -134,4 +134,4 @@ spring.config.activate.on-profile: docker
 server.port: 8081
 keycloak:
   auth-server-url: http://keycloak:8180/auth
-spring.zipkin.baseUrl:http://zipkin:9411
+spring.zipkin.baseUrl: http://zipkin:9411

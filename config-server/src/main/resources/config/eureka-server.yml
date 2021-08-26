@@ -20,3 +20,7 @@ management:
   endpoint:
     health:
       show-details: always
+
+---
+spring.config.activate.on-profile: docker
+server.port: 8761
