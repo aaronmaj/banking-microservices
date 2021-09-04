@@ -1,12 +1,17 @@
 package com.banking.core.dto.customer;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Getter
-public class CustomerDTO {
-    private final Integer id;
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class CustomerDto {
+    private final String customerId;
     private final String firstName;
     private final String lastName;
     private final String customerName;
@@ -29,9 +34,9 @@ public class CustomerDTO {
     private final String nationality;
 
 
-    private CustomerDTO(Builder builder) {
+    private CustomerDto(Builder builder) {
 
-        this.id = builder.id;
+        this.customerId = builder.customerId;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.customerName = builder.customerName;
@@ -55,7 +60,7 @@ public class CustomerDTO {
     }
 
     public static class Builder {
-        private Integer id;
+        private String customerId;
         private String firstName;
         private String lastName;
         private String customerName;
@@ -77,12 +82,12 @@ public class CustomerDTO {
         private byte[] contractPic;
         private String nationality;
 
-        public CustomerDTO build() {
-            return new CustomerDTO(this);
+        public CustomerDto build() {
+            return new CustomerDto(this);
         }
 
-        public Builder withId(Integer id) {
-            this.id = id;
+        public Builder withId(String customerId) {
+            this.customerId = customerId;
             return this;
         }
 

@@ -1,15 +1,21 @@
 package com.banking.core.dto.account;
 
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDate;
 //import org.springframework.hateoas.RepresentationModel;
 @Getter
-public class AccountDTO {
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public class AccountDto {
 
     private final String accountNumber;
     private final String accountName;
+    private final String accountHolder;
     private final LocalDate created;
     private final AccountType accountType;
     private final AccountStatus accountStatus;
@@ -17,11 +23,13 @@ public class AccountDTO {
     private final double balance;
     private final String customerId;
     private final Currency currency;
+    private final String branch;
 
-    private AccountDTO(Builder builder) {
+    private AccountDto(Builder builder) {
 
         this.accountNumber = builder.accountNumber;
         this.accountName = builder.accountName;
+        this.accountHolder = builder.accountHolder;
         this.created = builder.created;
         this.accountType = builder.accountType;
         this.accountStatus = builder.accountStatus;
@@ -29,20 +37,23 @@ public class AccountDTO {
         this.balance = builder.balance;
         this.customerId = builder.customerId;
         this.currency = builder.currency;
+        this.branch = builder.branch;
     }
 
 
     public static class Builder {
 
         private String accountNumber;
-        private String customerId;
         private String accountName;
+        private String customerId;
+        private String accountHolder;
         private LocalDate created;
         private AccountType accountType;
         private AccountStatus accountStatus;
         private AccountCategory accountCategory;
         private double balance;
         private Currency currency;
+        private String branch;
 
         public Builder() {
 
@@ -64,6 +75,10 @@ public class AccountDTO {
 
         public Builder withAccountName(String accountName) {
             this.accountName = accountName;
+            return this;
+        }
+        public Builder withAccountHolder(String accountHolder) {
+            this.accountHolder = accountHolder;
             return this;
         }
         public Builder withDateCreated(LocalDate created) {
@@ -94,8 +109,12 @@ public class AccountDTO {
             this.currency = currency;
             return this;
         }
-        public AccountDTO build() {
-            return new AccountDTO(this);
+        public Builder withBranch(String branch) {
+            this.branch = branch;
+            return this;
+        }
+        public AccountDto build() {
+            return new AccountDto(this);
         }
 
 
