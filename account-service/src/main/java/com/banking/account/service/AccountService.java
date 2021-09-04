@@ -1,20 +1,19 @@
 package com.banking.account.service;
 
 import com.banking.account.filters.UserContextHolder;
+import com.banking.account.mapper.AccountMapper;
 import com.banking.account.model.Account;
 import com.banking.account.repository.AccountRepository;
 import com.banking.account.service.client.CustomerFeignClient;
 import com.banking.account.service.client.CustomerRestTemplateClient;
-import com.banking.core.dto.account.AccountDTO;
-import com.banking.core.dto.customer.CustomerDTO;
+import com.banking.core.dto.account.AccountDto;
+import com.banking.core.dto.customer.CustomerDto;
 import com.banking.core.dto.customer.PersonalDetails;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,35 +35,35 @@ public class AccountService {
     @Autowired
     MessageSource messages;
     private final AccountRepository accountRepository;
+    @Autowired
+    private AccountMapper mapper;
 
     @Autowired
     CustomerFeignClient feignClient;
     @Autowired
     CustomerRestTemplateClient customerRestClient;
-    @Autowired
-    ModelMapper mapper;
 
-    public AccountDTO findById(Integer id) {
-        return convertToDTO(accountRepository.findById(id).orElse(null));
+    public AccountDto findById(Integer id) {
+        return mapper.convertToDto(accountRepository.findById(id).orElse(null));
     }
 
-    public AccountDTO getAccountByNumber(String accountNumber) {
-        return convertToDTO(accountRepository.findByAccountNumber(accountNumber).get());
+    public AccountDto getAccountByNumber(String accountNumber) {
+        return mapper.convertToDto(accountRepository.findByAccountNumber(accountNumber).get());
     }
 
-    public List<AccountDTO> findAll() {
+    public List<AccountDto> findAll() {
         return StreamSupport
                 .stream(accountRepository.findAll().spliterator(), false)
-                .map(this::convertToDTO)
+                .map(mapper::convertToDto)
                 .collect(Collectors.toList());
     }
 
-    public AccountDTO createAccount(AccountDTO accountDTO) {
-        return convertToDTO(accountRepository.save(convertToEntity(accountDTO)));
+    public AccountDto createAccount(AccountDto accountDto) {
+        return mapper.convertToDto(accountRepository.save(mapper.convertToEntity(accountDto)));
     }
 
-    public AccountDTO updateAccount(AccountDTO accountDTO) {
-        return convertToDTO(accountRepository.save(convertToEntity(accountDTO)));
+    public AccountDto updateAccount(AccountDto accountDto) {
+        return mapper.convertToDto(accountRepository.save(mapper.convertToEntity(accountDto)));
     }
 
     public String deleteAccount(String accountNumber) {
@@ -80,13 +79,13 @@ public class AccountService {
     @RateLimiter(name = "detailService", fallbackMethod = "buildFallbackDetails")
     @Retry(name = "retryDetailService", fallbackMethod = "buildFallbackDetails")
     @Bulkhead(name = "bulkheadDetailService", type = THREADPOOL, fallbackMethod = "buildFallbackDetails")
-    public CustomerDTO getPersonalDetails(String accountNumber) throws TimeoutException {
+    public CustomerDto getPersonalDetails(String accountNumber) throws TimeoutException {
         logger.debug("getLicensesByOrganization Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         return getCustomer(accountRepository.findByAccountNumber(accountNumber).get().getCustomerId());
     }
 
     @CircuitBreaker(name = "customerService")
-    private CustomerDTO getCustomer(String cuctomerId) {
+    private CustomerDto getCustomer(String cuctomerId) {
         return customerRestClient.getCustomer(cuctomerId);
     }
 
@@ -96,16 +95,5 @@ public class AccountService {
 
         return details;
     }
-
-    private AccountDTO convertToDTO(Account account) {
-        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        return mapper.map(account, AccountDTO.class);
-    }
-
-    private Account convertToEntity(AccountDTO accountDTO) {
-        Account account = mapper.map(accountDTO, Account.class);
-        return account;
-    }
-
 
 }

@@ -1,15 +1,13 @@
 package com.banking.account.controller;
 
 
-import com.banking.account.model.Account;
 import com.banking.account.service.AccountService;
-import com.banking.core.dto.account.AccountDTO;
-import com.banking.core.dto.customer.CustomerDTO;
+import com.banking.core.dto.account.AccountDto;
+import com.banking.core.dto.customer.CustomerDto;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,15 +27,15 @@ public class AccountController {
 
     @RolesAllowed({ "ADMIN", "USER" })
     @GetMapping
-    ResponseEntity<List<AccountDTO>> findAll() {
+    ResponseEntity<List<AccountDto>> findAll() {
         LOGGER.info("Fetching all accounts....");
-        List<AccountDTO> accounts = this.accountService.findAll();
+        List<AccountDto> accounts = this.accountService.findAll();
         return ResponseEntity.ok(accounts);
     }
     @RolesAllowed({ "ADMIN", "USER" })
     @GetMapping(value = "/{accountNumber}")
-    public ResponseEntity<AccountDTO> getAccount(@PathVariable("accountNumber") String accountNumber) {
-        AccountDTO accountDTO = accountService.getAccountByNumber(accountNumber);
+    public ResponseEntity<AccountDto> getAccount(@PathVariable("accountNumber") String accountNumber) {
+        AccountDto accountDTO = accountService.getAccountByNumber(accountNumber);
         /*accountDTO.add(
                 linkTo(methodOn(AccountController.class)
                         .getAccount(accountNumber))
@@ -59,18 +57,18 @@ public class AccountController {
     @SneakyThrows
     @RolesAllowed({ "ADMIN", "USER" })
     @GetMapping(value = "/{accountNumber}/customer")
-    public ResponseEntity<CustomerDTO> getCustomerDetails(@PathVariable("accountNumber")String accountNumber){
+    public ResponseEntity<CustomerDto> getCustomerDetails(@PathVariable("accountNumber")String accountNumber){
         return ResponseEntity.ok(accountService.getPersonalDetails(accountNumber));
     }
 
     @PostMapping
     @RolesAllowed({ "ADMIN", "USER" })
-    public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) {
+    public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDTO) {
 
         return ResponseEntity.ok(accountService.createAccount(accountDTO));
     }
     @PutMapping
-    public ResponseEntity<AccountDTO> updateAccount(@RequestBody AccountDTO accountDTO) {
+    public ResponseEntity<AccountDto> updateAccount(@RequestBody AccountDto accountDTO) {
 
         return ResponseEntity.ok(accountService.updateAccount(accountDTO));
     }

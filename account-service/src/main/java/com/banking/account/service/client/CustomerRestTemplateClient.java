@@ -1,11 +1,11 @@
 package com.banking.account.service.client;
 
 import com.banking.account.filters.UserContextHolder;
+import com.banking.account.mapper.CustomerMapper;
 import com.banking.account.model.Customer;
 import com.banking.account.repository.RedisRepository;
-import com.banking.core.dto.customer.CustomerDTO;
+import com.banking.core.dto.customer.CustomerDto;
 import org.keycloak.adapters.springsecurity.client.KeycloakRestTemplate;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,36 +25,36 @@ public class CustomerRestTemplateClient {
     Tracer tracer;
 
     @Autowired
-    ModelMapper mapper;
+    CustomerMapper mapper;
 
     @Autowired
     KeycloakRestTemplate keycloakRestTemplate;
     @Autowired
     RedisRepository redisRepository;
 
-    public CustomerDTO getCustomer(String customerId) {
+    public CustomerDto getCustomer(String customerId) {
         logger.debug("In Account Service.getCustomer: {}", UserContextHolder.getContext().getCorrelationId());
 
         Customer customer = checkRedisCache(customerId);
 
         if (customer != null) {
             logger.debug("Successfully retrieved a customer {} from the redis cache: {}", customerId, customer);
-            return mapper.map(customer, CustomerDTO.class);
+            return mapper.convertToDto(customer);
         }
 
         logger.debug("Unable to locate customer from the redis cache: {}.", customerId);
 
-        ResponseEntity<CustomerDTO> restExchange =
+        ResponseEntity<CustomerDto> restExchange =
                 keycloakRestTemplate
                         .exchange("http://gateway:8072/customer/v1/customer/{customerId}",
                                 HttpMethod.GET,
                                 null,
-                                CustomerDTO.class,
+                                CustomerDto.class,
                                 customerId);
 
-        CustomerDTO customerDTO = restExchange.getBody();
-        if (customerDTO != null) {
-            cacheCustomerObject(mapper.map(customerDTO, Customer.class));
+        CustomerDto customerDto = restExchange.getBody();
+        if (customerDto != null) {
+            cacheCustomerObject(mapper.convertToEntity(customerDto));
         }
         return restExchange.getBody();
     }

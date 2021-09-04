@@ -1,6 +1,6 @@
 package com.banking.account.service.client;
 
-import com.banking.core.dto.customer.CustomerDTO;
+import com.banking.core.dto.customer.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -17,7 +17,7 @@ public class CustomerDiscoveryClient {
     @Autowired
     DiscoveryClient discoveryClient;
 
-    public CustomerDTO getCustomer(String customerId) {
+    public CustomerDto getCustomer(String customerId) {
         RestTemplate restTemplate = new RestTemplate();
 
         List<ServiceInstance> instances = discoveryClient.getInstances("customer-service");
@@ -27,8 +27,8 @@ public class CustomerDiscoveryClient {
         String serviceUri = String.format("%s/v1/customer/%s",
                 instances.get(0).getUri().toString(), customerId);
 
-        ResponseEntity<CustomerDTO> restExchange =
-                restTemplate.exchange(serviceUri, HttpMethod.GET, null, CustomerDTO.class, customerId);
+        ResponseEntity<CustomerDto> restExchange =
+                restTemplate.exchange(serviceUri, HttpMethod.GET, null, CustomerDto.class, customerId);
         return restExchange.getBody();
     }
 }

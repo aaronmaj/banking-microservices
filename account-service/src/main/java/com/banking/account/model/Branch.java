@@ -17,4 +17,19 @@ public class Branch {
     private String branchName;
     private String adress;
     private String contactNumber;
+
+    public Branch() {
+    }
+
+    public Branch(String branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public Branch(Integer id, String branchCode, String branchName, String adress, String contactNumber) {
+        this.id = id;
+        this.branchCode = branchCode;
+        this.branchName = branchName;
+        this.adress = adress;
+        this.contactNumber = contactNumber;
+    }
 }

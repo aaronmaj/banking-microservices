@@ -1,8 +1,9 @@
 package com.banking.account.model;
 
-import com.banking.account.model.enumeration.AccountCategory;
-import com.banking.account.model.enumeration.AccountStatus;
-import com.banking.account.model.enumeration.AccountType;
+import com.banking.core.dto.account.AccountCategory;
+import com.banking.core.dto.account.AccountStatus;
+import com.banking.core.dto.account.AccountType;
+import com.banking.core.dto.account.Currency;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,9 @@ public class Account {
     private String accountNumber;
     @Column(name = "account_name")
     private String accountName;
+    @Column(name = "customer_id")
+    private String customerId;
+    private String owner;
     private LocalDate created;
     @Column(name = "account_type")
     @Enumerated(EnumType.ORDINAL)
@@ -33,11 +37,12 @@ public class Account {
     private double availableBalance;
     @Column(name = "current_balance")
     private double currentBalance;
-    @Column(name = "customer_id")
-    private String customerId;
     private Integer numberOfSignatories;
+    @Enumerated
+    private Currency currency;
     @ManyToOne
     private Branch branch;
+
 
 
 }
