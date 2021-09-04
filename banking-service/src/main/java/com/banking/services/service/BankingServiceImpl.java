@@ -1,4 +1,4 @@
-package com.banking.operation.service;
+package com.banking.services.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

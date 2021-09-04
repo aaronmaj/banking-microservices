@@ -1,4 +1,4 @@
-package com.banking.operation.model;
+package com.banking.services.model;
 
 import com.banking.core.dto.transaction.TransactionStatus;
 import com.banking.core.dto.transaction.TransactionType;

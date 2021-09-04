@@ -2,7 +2,7 @@ package com.banking.customer.service;
 
 import brave.ScopedSpan;
 import brave.Tracer;
-import com.banking.core.dto.customer.CustomerDTO;
+import com.banking.core.dto.customer.CustomerDto;
 import com.banking.customer.events.model.Action;
 import com.banking.customer.events.source.SimpleSourceBean;
 import com.banking.customer.model.Customer;
@@ -33,20 +33,20 @@ public class CustomerService {
     @Autowired
     ModelMapper modelMapper;
 
-    public CustomerDTO createCustomer(CustomerDTO customerDto) {
+    public CustomerDto createCustomer(CustomerDto customerDto) {
         Customer customer = customerRepository.save(convertToEntity(customerDto));
         simpleSourceBean.publishCustomerChange(Action.CREATED, customer.getCustomerId());
         return convertToDTO(customer);
     }
 
-    public List<CustomerDTO> findAll() {
+    public List<CustomerDto> findAll() {
         return customerRepository.findAll()
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public CustomerDTO findById(String customerId) {
+    public CustomerDto findById(String customerId) {
         ScopedSpan newSpan = tracer.startScopedSpan("getCustDBCall");
         Optional<Customer> opt = null;
         try {
@@ -61,27 +61,27 @@ public class CustomerService {
         return (opt.isPresent()) ? convertToDTO(opt.get()) : null;
     }
 
-    public CustomerDTO update(CustomerDTO customerDto) {
+    public CustomerDto update(CustomerDto customerDto) {
         Customer customer = customerRepository.save(convertToEntity(customerDto));
         simpleSourceBean.publishCustomerChange(Action.UPDATED, customer.getCustomerId());
         return convertToDTO(customer);
     }
 
-    public CustomerDTO uploadImage(String customerId, byte[] image) {
+    public CustomerDto uploadImage(String customerId, byte[] image) {
         Customer customer = customerRepository.findById(customerId).get();
         if (customer != null)
             customer.setPhoto(image);
         return convertToDTO(customer);
     }
 
-    public CustomerDTO uploadIdPic(String customerId, byte[] certPic) {
+    public CustomerDto uploadIdPic(String customerId, byte[] certPic) {
         Customer customer = customerRepository.findById(customerId).get();
         if (customer != null)
             customer.setIdPic(certPic);
         return convertToDTO(customer);
     }
 
-    public CustomerDTO uploadContract(String customerId, byte[] contractPic) {
+    public CustomerDto uploadContract(String customerId, byte[] contractPic) {
         Customer customer = customerRepository.findById(customerId).get();
         if (customer != null)
             customer.setContractPic(contractPic);
@@ -93,11 +93,11 @@ public class CustomerService {
         simpleSourceBean.publishCustomerChange(Action.DELETED, customerId);
     }
 
-    private CustomerDTO convertToDTO(Customer customer) {
-        return modelMapper.map(customer, CustomerDTO.class);
+    private CustomerDto convertToDTO(Customer customer) {
+        return modelMapper.map(customer, CustomerDto.class);
     }
 
-    public Customer convertToEntity(CustomerDTO customerDTO) {
+    public Customer convertToEntity(CustomerDto customerDTO) {
         Customer customer = modelMapper.map(customerDTO, Customer.class);
         return customer;
     }

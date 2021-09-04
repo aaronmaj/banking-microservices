@@ -1,4 +1,4 @@
-package com.banking.operation.repository;
+package com.banking.services.repository;
 
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.banking.operation.service;
+package com.banking.services.service;
 
 public interface BankingService {
     void depositIntoAccount(int accountId, double amount);

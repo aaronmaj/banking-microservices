@@ -1,6 +1,6 @@
 package com.banking.customer.controller;
 
-import com.banking.core.dto.customer.CustomerDTO;
+import com.banking.core.dto.customer.CustomerDto;
 import com.banking.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,18 +28,18 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping
-    public ResponseEntity<List<CustomerDTO>> getAll() {
+    public ResponseEntity<List<CustomerDto>> getAll() {
         return ResponseEntity.ok(customerService.findAll());
     }
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable("customerId") String customerId) {
+    public ResponseEntity<CustomerDto> getCustomerById(@PathVariable("customerId") String customerId) {
         return ResponseEntity.ok(customerService.findById(customerId));
     }
 
     @GetMapping(value = "/{customerId}/image")
     Resource downloadImage(@PathVariable String customerId) {
-        CustomerDTO customerDto = customerService.findById(customerId);
+        CustomerDto customerDto = customerService.findById(customerId);
         if (customerDto != null) {
             byte[] image = customerDto.getPhoto();
             return new ByteArrayResource(image);
@@ -49,7 +49,7 @@ public class CustomerController {
 
     @GetMapping(value = "/{customerId}/cert")
     Resource downloadIdPic(@PathVariable String customerId) {
-        CustomerDTO customerDto = customerService.findById(customerId);
+        CustomerDto customerDto = customerService.findById(customerId);
         if (customerDto != null) {
             byte[] image = customerDto.getIdPic();
             return new ByteArrayResource(image);
@@ -59,7 +59,7 @@ public class CustomerController {
 
     @GetMapping(value = "/{customerId}/contract", produces = MediaType.APPLICATION_PDF_VALUE)
     ResponseEntity<InputStreamResource> exportToPdf(@PathVariable String customerId) throws IOException {
-        CustomerDTO customerDto = customerService.findById(customerId);
+        CustomerDto customerDto = customerService.findById(customerId);
         if (customerDto != null) {
             HttpHeaders headers = new HttpHeaders();
 
@@ -79,13 +79,13 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDTO) {
         return ResponseEntity.ok(customerService.createCustomer(customerDTO));
 
     }
 
     @PutMapping(value = "/{customerId}")
-    ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("customerId") String customerId, @RequestBody CustomerDTO customerDto) {
+    ResponseEntity<CustomerDto> updateCustomer(@PathVariable("customerId") String customerId, @RequestBody CustomerDto customerDto) {
         if (customerService.findById(customerId) != null) {
             return ResponseEntity.ok(customerService.update(customerDto));
         } else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -93,9 +93,9 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/{customerId}/image")
-    ResponseEntity<CustomerDTO> uploadImage(@PathVariable("customerId") String customerId, @RequestPart("image") MultipartFile multipartImage) throws Exception {
+    ResponseEntity<CustomerDto> uploadImage(@PathVariable("customerId") String customerId, @RequestPart("image") MultipartFile multipartImage) throws Exception {
 
-        CustomerDTO customerDto = customerService.findById(customerId);
+        CustomerDto customerDto = customerService.findById(customerId);
         if (customerDto != null) {
             return ResponseEntity.ok(customerService.uploadImage(customerId, multipartImage.getBytes()));
 
@@ -104,9 +104,9 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/{customerId}/cert")
-    ResponseEntity<CustomerDTO> uploadIdPic(@PathVariable("customerId") String customerId, @RequestPart("cert") MultipartFile multipartImage) throws Exception {
+    ResponseEntity<CustomerDto> uploadIdPic(@PathVariable("customerId") String customerId, @RequestPart("cert") MultipartFile multipartImage) throws Exception {
 
-        CustomerDTO customerDto = customerService.findById(customerId);
+        CustomerDto customerDto = customerService.findById(customerId);
         if (customerDto != null) {
             return ResponseEntity.ok(customerService.uploadIdPic(customerId, multipartImage.getBytes()));
 
@@ -115,9 +115,9 @@ public class CustomerController {
     }
 
     @PutMapping(value = "/{customerId}/contract")
-    ResponseEntity<CustomerDTO> uploadContract(@PathVariable("customerId") String customerId, @RequestPart("contract") MultipartFile multipartImage) throws Exception {
+    ResponseEntity<CustomerDto> uploadContract(@PathVariable("customerId") String customerId, @RequestPart("contract") MultipartFile multipartImage) throws Exception {
 
-        CustomerDTO customerDto = customerService.findById(customerId);
+        CustomerDto customerDto = customerService.findById(customerId);
         if (customerDto != null) {
             return ResponseEntity.ok(customerService.uploadContract(customerId, multipartImage.getBytes()));
 
