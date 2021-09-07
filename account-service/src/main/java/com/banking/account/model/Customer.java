@@ -4,10 +4,10 @@ import com.banking.core.dto.customer.CustType;
 import com.banking.core.dto.customer.Gender;
 import com.banking.core.dto.customer.IdType;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Data
@@ -19,7 +19,7 @@ public class Customer extends RepresentationModel<Customer> {
     private String lastName;
     private String customerName;
     private CustType custType;
-    private LocalDate dateofBirth;
+    private LocalDate dateOfBirth;
     private String address;
     private String district;
     private String city;
@@ -31,8 +31,8 @@ public class Customer extends RepresentationModel<Customer> {
     private String occupation;
     private String phoneNumber;
     private String email;
-    private String photo;
-    private String idPic;
-    private String contractPic;
+    private byte[] photo;
+    private byte[] idPic;
+    private byte[] contractPic;
     private String nationality;
 }

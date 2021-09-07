@@ -4,6 +4,31 @@ server:
     include-message: always
   forward-headers-strategy: framework
 
+  spring:
+    jpa:
+      hibernate:
+        ddl-auto: update # none
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+      database: POSTGRESQL
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      defer-datasource-initialization: true
+      show-sql: true
+      properties:
+        hibernate:
+          show_sql: true
+          format_sql: true
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          use_sql_comments: true
+    datasource:
+      platform: postgres
+      testWhileIdle: true
+      validationQuery: SELECT 1
+      continue-on-error: false
+
+    database:
+      driverClassName: org.postgresql.Driver
+
 app.banking-service: localhost
 ---
 spring:

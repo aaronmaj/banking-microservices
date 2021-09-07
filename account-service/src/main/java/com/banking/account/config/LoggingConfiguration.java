@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.net.InetSocketAddress;
 
-@Configuration
+//@Configuration
 public class LoggingConfiguration {
 
     private static final String LOGSTASH_APPENDER_NAME = "LOGSTASH";

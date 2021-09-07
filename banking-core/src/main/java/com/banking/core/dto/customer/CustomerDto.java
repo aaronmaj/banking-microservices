@@ -16,7 +16,7 @@ public class CustomerDto {
     private final String lastName;
     private final String customerName;
     private final CustType custType;
-    private final LocalDate dateofBirth;
+    private final LocalDate dateOfBirth;
     private final String address;
     private final String district;
     private final String city;
@@ -41,7 +41,7 @@ public class CustomerDto {
         this.lastName = builder.lastName;
         this.customerName = builder.customerName;
         this.custType = builder.custType;
-        this.dateofBirth = builder.dateofBirth;
+        this.dateOfBirth = builder.dateOfBirth;
         this.address = builder.address;
         this.district = builder.district;
         this.city = builder.city;
@@ -65,7 +65,7 @@ public class CustomerDto {
         private String lastName;
         private String customerName;
         private CustType custType;
-        private LocalDate dateofBirth;
+        private LocalDate dateOfBirth;
         private String address;
         private String district;
         private String city;
@@ -111,8 +111,8 @@ public class CustomerDto {
             return this;
         }
 
-        public Builder withDateOfBirth(LocalDate dateofBirth) {
-            this.dateofBirth = dateofBirth;
+        public Builder withDateOfBirth(LocalDate dateOfBirth) {
+            this.dateOfBirth = dateOfBirth;
             return this;
         }
 

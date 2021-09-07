@@ -13,7 +13,7 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: update # none
+      ddl-auto: create-drop # none
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 
     database: POSTGRESQL
@@ -21,7 +21,10 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        se_sql_comments: true
+
   datasource:
     platform: postgres
     testWhileIdle: true
