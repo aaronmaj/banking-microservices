@@ -1,7 +1,7 @@
 package com.banking.account.service.client;
 
 import com.banking.account.filters.UserContextHolder;
-import com.banking.account.mapper.CustomerMapper;
+import com.banking.account.mappers.CustomerMapper;
 import com.banking.account.model.Customer;
 import com.banking.account.repository.RedisRepository;
 import com.banking.core.dto.customer.CustomerDto;

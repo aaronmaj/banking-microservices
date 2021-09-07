@@ -1,7 +1,7 @@
 package com.banking.account.service;
 
 import com.banking.account.filters.UserContextHolder;
-import com.banking.account.mapper.AccountMapper;
+import com.banking.account.mappers.AccountMapper;
 import com.banking.account.model.Account;
 import com.banking.account.repository.AccountRepository;
 import com.banking.account.service.client.CustomerFeignClient;

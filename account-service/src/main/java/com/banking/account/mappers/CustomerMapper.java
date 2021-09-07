@@ -1,4 +1,4 @@
-package com.banking.account.mapper;
+package com.banking.account.mappers;
 
 import com.banking.account.model.Customer;
 import com.banking.core.dto.customer.CustomerDto;

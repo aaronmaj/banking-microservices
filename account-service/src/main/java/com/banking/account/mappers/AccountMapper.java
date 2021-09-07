@@ -1,4 +1,4 @@
-package com.banking.account.mapper;
+package com.banking.account.mappers;
 
 import com.banking.account.model.Account;
 import com.banking.account.model.Branch;
