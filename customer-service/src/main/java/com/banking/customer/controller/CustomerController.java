@@ -78,9 +78,10 @@ public class CustomerController {
         } else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping
-    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDTO) {
-        return ResponseEntity.ok(customerService.createCustomer(customerDTO));
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
+        log.info("Posting a new customer.....{}",customerDto);
+        return ResponseEntity.ok(customerService.createCustomer(customerDto));
 
     }
 
