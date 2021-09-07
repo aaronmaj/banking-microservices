@@ -1,5 +1,9 @@
 package com.banking.core.dto.customer;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,26 +14,41 @@ import java.time.LocalDate;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@JsonTypeName("customer")
+@JsonTypeInfo(include= JsonTypeInfo.As.WRAPPER_OBJECT, use= JsonTypeInfo.Id.NAME)
 public class CustomerDto {
+    @JsonProperty("customer_id")
     private final String customerId;
+    @JsonProperty("first_name")
     private final String firstName;
+    @JsonProperty("last_name")
     private final String lastName;
+    @JsonProperty("customer_name")
     private final String customerName;
+    @JsonProperty("customer_Type")
     private final CustType custType;
+    @JsonProperty("date_of_birth")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private final LocalDate dateOfBirth;
     private final String address;
     private final String district;
     private final String city;
+    @JsonProperty("id_number")
     private final String idNumber;
+    @JsonProperty("id_type")
     private final IdType idType;
     private final String country;
+    @JsonProperty("id_delivery_date")
     private final String idDeliveryDate;
     private final Gender gender;
     private final String occupation;
+    @JsonProperty("phone_number")
     private final String phoneNumber;
     private final String email;
     private byte[] photo;
+    @JsonProperty("id_pic")
     private byte[] idPic;
+    @JsonProperty("contract_pic")
     private byte[] contractPic;
     private final String nationality;
 

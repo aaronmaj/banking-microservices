@@ -1,6 +1,10 @@
 package com.banking.core.dto.account;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,16 +15,26 @@ import java.time.LocalDate;
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@JsonTypeName("account")
+@JsonTypeInfo(include= JsonTypeInfo.As.WRAPPER_OBJECT, use= JsonTypeInfo.Id.NAME)
 public class AccountDto {
-
+    @JsonProperty("account_number")
     private final String accountNumber;
+    @JsonProperty("account_name")
     private final String accountName;
+    @JsonProperty("account_holder")
     private final String accountHolder;
+    @JsonProperty("date_created")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private final LocalDate created;
+    @JsonProperty("type")
     private final AccountType accountType;
+    @JsonProperty("status")
     private final AccountStatus accountStatus;
+    @JsonProperty("category")
     private final AccountCategory accountCategory;
     private final double balance;
+    @JsonProperty("customer_id")
     private final String customerId;
     private final Currency currency;
     private final String branch;
@@ -47,6 +61,7 @@ public class AccountDto {
         private String accountName;
         private String customerId;
         private String accountHolder;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         private LocalDate created;
         private AccountType accountType;
         private AccountStatus accountStatus;

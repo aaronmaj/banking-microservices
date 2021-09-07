@@ -4,6 +4,6 @@ public class BranchDtO {
 
     private String branchCode;
     private String branchName;
-    private String adress;
+    private String address;
     private String contactNumber;
 }
