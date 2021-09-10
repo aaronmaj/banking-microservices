@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -51,7 +52,10 @@ public class AccountController {
                         .withRel("deleteAccount"));
 
          */
-        return ResponseEntity.ok(accountDTO);
+        return Optional.ofNullable(accountDTO)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+       
     }
 
     @SneakyThrows
