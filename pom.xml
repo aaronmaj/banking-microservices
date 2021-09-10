@@ -18,5 +18,6 @@
         <module>customer-service</module>
         <module>authorization-server</module>
         <module>banking-service</module>
+        <module>transaction-service</module>
     </modules>
 </project>
