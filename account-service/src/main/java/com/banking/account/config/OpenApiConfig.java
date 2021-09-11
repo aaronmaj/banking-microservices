@@ -1,2 +1,4 @@
-package com.banking.account.config;public class OpenApiConfig {
+package com.banking.account.config;
+
+public class OpenApiConfig {
 }

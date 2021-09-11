@@ -3,7 +3,7 @@ package com.banking.account.model;
 import com.banking.core.dto.account.AccountCategory;
 import com.banking.core.dto.account.AccountStatus;
 import com.banking.core.dto.account.AccountType;
-import com.banking.core.dto.account.Currency;
+import com.banking.core.dto.common.Currency;
 import lombok.Data;
 
 import javax.persistence.*;

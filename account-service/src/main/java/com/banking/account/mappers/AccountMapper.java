@@ -11,8 +11,8 @@ import org.mapstruct.Mappings;
 public interface AccountMapper {
 
     @Mappings({
-            @Mapping(source = "owner", target = "accountHolder"),
-            @Mapping(source = "branch.branchCode", target ="branch" )
+            @Mapping(source = "owner", target = "withAccountHolder"),
+            @Mapping(source = "branch.branchCode", target ="withBranch" )
     })
     AccountDto convertToDto(Account account);
 
