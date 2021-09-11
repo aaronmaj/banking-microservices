@@ -1,14 +1,101 @@
-springdoc:
-  swagger-ui.path: /openapi/swagger-ui.html
-  api-docs.path: /openapi/v3/api-docs
-  packagesToScan: com.banking.core.*
-  pathsToMatch: /**
-
 server:
   port: 8081
   error:
     include-message: always
   forward-headers-strategy: framework
+
+# API documentation
+api:
+  common:
+    version: 1.0.0
+    title: Account Service API
+    description: Account service API for operations pertaining to bank accounts
+    termsOfService: N/A
+    license: MIT Licence
+    licenseUrl: https://mit-license.org/
+    externalDocDesc: N/A
+    externalDocUrl: N/AL
+    contact:
+      name: Aaron MAJAMBO
+      url: https://github.com/aaronmaj
+      email: aaronmajb@gmail.com
+  responseCodes:
+    ok.description: OK
+    badRequest.description: Bad Request, invalid format of the request. See response message for more information
+    notFound.description: Not found, the account for specified account number does not exist
+    unprocessableEntity.description: Unprocessable entity, input parameters caused the processing to fail. See response message for more information
+
+  accounts:
+    find-all:
+      description: Returns the list of all accounts recorded by the system
+      notes: |
+        # Normal response
+        If account entities are found the method will return information regarding each account:
+        1. Account basic information
+        1. Account type (CHECKING,SAVINGS,LOAN,CERTIFICATE_OF_DEPOSIT)
+        1. Account category (INDIVIDUAL, JOINT, INDIVIS)
+        1. Account status (OPEN,ACTIVE,DORMANT,INACTIVE, BLOCKED,CLOSED)
+        1. Brach code where the account was created
+        1. Customer id associated with the account
+        1. Currency (BIF,USD,EUR,GBP)
+        # Expected partial and error responses
+        1. If no account information is found, an empty list will be returned
+
+    get-account-by-account-number:
+      description: Returns an account information for the specified account number
+      notes: |
+        # Normal response
+        If the requested account  is found the method will return information regarding:
+        1. Account basic information
+        1. Account type (CHECKING,SAVINGS,LOAN,CERTIFICATE_OF_DEPOSIT)
+        1. Account category (INDIVIDUAL, JOINT, INDIVIS)
+        1. Account status (OPEN,ACTIVE,DORMANT,INACTIVE, BLOCKED,CLOSED)
+        1. Brach code where the account was created
+        1. Customer id associated with the account
+        1. Currency (BIF,USD,EUR,GBP)
+        # Expected partial and error responses
+        1. If no account is found for the given account number, a **404 - Not Found** error will be returned
+        1. In case of missing information (non mandatory) during registration, a partial response will be returned
+    create-account:
+      description: Creates an account object
+      notes: |
+        # Normal response
+        The account information posted to the API will be stored in a dedicated account entity.
+        # Expected error responses
+        1. If an account with the same account as specified in the posted information already exists,
+           an **422 - Unprocessable Entity** error with a "duplicate key" error message will be returned
+    update-account:
+      description: Update an account for a given account number
+      notes: |
+        # Normal response
+        The account information related to the specified account number will updated.
+        # Expected error responses
+        If no account is found, a **404 - Not Found** error will be returned
+
+    get-customer-details:
+      description: Displays the personal details for the account holder
+      notes: |
+        # Normal response
+        The Personal Details for account holder.
+        # Expected error responses
+        If no account is found, a **404 - Not Found** error will be returned
+
+    delete-account:
+      description: Deletes an account for a given account number
+      notes: |
+        # Normal response
+        The account related to the specified account number will be deleted.
+        The implementation of the delete method is idempotent, i.e. it can be called several times with the same response.
+        This means that a delete request of a non-existing product will return **200 Ok**.
+
+
+
+springdoc:
+  swagger-ui.path: /openapi/swagger-ui.html
+  api-docs.path: /openapi/v3/api-docs
+  packagesToScan: com.banking.account
+  pathsToMatch: /**
+  cache.disabled: true
 
 spring:
   jpa:
