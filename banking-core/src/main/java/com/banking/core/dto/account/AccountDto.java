@@ -1,12 +1,9 @@
 package com.banking.core.dto.account;
 
 
+import com.banking.core.dto.common.Currency;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
@@ -15,7 +12,7 @@ import java.time.LocalDate;
 //import org.springframework.hateoas.RepresentationModel;
 @Getter
 @Value
-@Builder(setterPrefix = "with")
+@Builder(builderClassName = "Builder", setterPrefix = "with")
 @Jacksonized
 public class AccountDto {
     @JsonProperty("account_number")

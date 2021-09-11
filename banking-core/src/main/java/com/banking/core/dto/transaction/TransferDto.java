@@ -1,8 +1,7 @@
 package com.banking.core.dto.transaction;
 
 import com.banking.core.dto.account.AccountType;
-import com.banking.core.dto.account.Currency;
-import com.banking.core.dto.account.Direction;
+import com.banking.core.dto.common.Currency;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

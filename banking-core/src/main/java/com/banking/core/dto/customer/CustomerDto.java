@@ -11,9 +11,8 @@ import lombok.extern.jackson.Jacksonized;
 
 import java.time.LocalDate;
 
-@Getter
 @Value
-@Builder(setterPrefix = "with")
+@Builder(builderClassName = "Builder", setterPrefix = "with")
 @Jacksonized
 public class CustomerDto {
     @JsonProperty("customer_id")

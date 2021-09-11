@@ -1,7 +1,8 @@
-package com.banking.core.dto.account;
+package com.banking.core.dto.common;
 
 public enum Currency {
     BIF,
     USD,
-    EUR
+    EUR,
+    GBP
 }
