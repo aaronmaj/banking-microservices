@@ -26,6 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "v1/customers")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CustomerController {
 
     private final CustomerService customerService;

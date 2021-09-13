@@ -26,6 +26,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/v1/accounts")
+@CrossOrigin
 @Tag(name = "AccountService", description = "REST API for accounts microservice.")
 public class AccountController {
 
