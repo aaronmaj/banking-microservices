@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,15 +47,16 @@ public class AccountController {
             @ApiResponse(responseCode = "400", description = "${api.responseCodes.badRequest.description}"),
             @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
     })
-    @RolesAllowed({ "ADMIN", "USER" })
+    @RolesAllowed({"ADMIN", "USER"})
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     ResponseEntity<List<AccountDto>> findAll() {
 
         logger.info("Fetching all accounts....");
         List<AccountDto> accounts = this.accountService.findAll();
-        return ResponseEntity.ok(accounts);
+        return ResponseEntity.ok().body(accounts);
     }
+
     /**
      * Usage: "curl $HOST:$PORT/v1/accounts/0670234".
      *
@@ -70,7 +72,7 @@ public class AccountController {
             @ApiResponse(responseCode = "404", description = "${api.responseCodes.notFound.description}"),
             @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
     })
-    @RolesAllowed({ "ADMIN", "USER" })
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping(value = "/{accountNumber}")
     public ResponseEntity<AccountDto> getAccount(@PathVariable("accountNumber") String accountNumber) {
         AccountDto accountDto = accountService.getAccountByNumber(accountNumber);
@@ -92,8 +94,9 @@ public class AccountController {
         return Optional.ofNullable(accountDto)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
-       
+
     }
+
     /**
      * Usage: "curl $HOST:$PORT/v1/accounts/0670234/customer".
      *
@@ -110,17 +113,18 @@ public class AccountController {
             @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
     })
     @SneakyThrows
-    @RolesAllowed({ "ADMIN", "USER" })
+    @RolesAllowed({"ADMIN", "USER"})
     @GetMapping(value = "/{accountNumber}/customer")
-    public ResponseEntity<CustomerDto> getCustomerDetails(@PathVariable("accountNumber")String accountNumber){
+    public ResponseEntity<CustomerDto> getCustomerDetails(@PathVariable("accountNumber") String accountNumber) {
         return ResponseEntity.ok(accountService.getPersonalDetails(accountNumber));
     }
+
     /**
      * Sample usage, see below.
-     *
+     * <p>
      * curl -X POST $HOST:$PORT/v1/accounts \
-     *   -H "Content-Type: application/json" --data \
-     *   '{"account_number":0670234,"account_name":"Aaron MAJAMBO","account_holder":"Aaron MAJAMBO", "type": "CHECKING"}'
+     * -H "Content-Type: application/json" --data \
+     * '{"account_number":0670234,"account_name":"Aaron MAJAMBO","account_holder":"Aaron MAJAMBO", "type": "CHECKING"}'
      *
      * @param accountDto A JSON representation of the new account data transfer object
      */
@@ -131,20 +135,22 @@ public class AccountController {
             @ApiResponse(responseCode = "400", description = "${api.responseCodes.badRequest.description}"),
             @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
     })
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
-    @RolesAllowed({ "ADMIN", "USER" })
+    @RolesAllowed({"ADMIN", "USER"})
     public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto) {
 
-        return ResponseEntity.ok(accountService.createAccount(accountDto));
+        accountService.createAccount(accountDto);
+        URI uri = URI.create("/v1/accounts/" + accountDto.getAccountNumber());
+        return ResponseEntity.created(uri).body(accountDto);
     }
 
     /**
      * Sample usage, see below.
-     *
+     * <p>
      * curl -X PUT $HOST:$PORT/v1/accounts \
-     *   -H "Content-Type: application/json" --data \
-     *   '{"account_number":0670234,"account_name":"Aaron MAJAMBO","account_holder":"Aaron MAJAMBO", "type": "CHECKING"}'
+     * -H "Content-Type: application/json" --data \
+     * '{"account_number":0670234,"account_name":"Aaron MAJAMBO","account_holder":"Aaron MAJAMBO", "type": "CHECKING"}'
      *
      * @param accountDto A JSON representation of the new account data to update
      */
@@ -156,9 +162,11 @@ public class AccountController {
             @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
     })
     @ResponseStatus(HttpStatus.OK)
-    @PutMapping
-    public ResponseEntity<AccountDto> updateAccount(@RequestBody AccountDto accountDto) {
+    @PutMapping("/{accountNumber}")
+    public ResponseEntity<AccountDto> updateAccount(@PathVariable("accountNumber") String accountNumber, @RequestBody AccountDto accountDto) {
 
+        if (accountService.getAccountByNumber(accountNumber) == null)
+            return ResponseEntity.notFound().build();
         return ResponseEntity.ok(accountService.updateAccount(accountDto));
     }
 
@@ -180,7 +188,10 @@ public class AccountController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @DeleteMapping(value = "/{accountNumber}")
     public ResponseEntity<String> deleteAccount(@PathVariable("accountNumber") String accountNumber) {
-        return ResponseEntity.ok(accountService.deleteAccount(accountNumber));
+
+        if (accountService.getAccountByNumber(accountNumber) == null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.accepted().body(accountService.deleteAccount(accountNumber));
     }
 
 }

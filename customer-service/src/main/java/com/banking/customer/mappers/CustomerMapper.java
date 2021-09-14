@@ -17,6 +17,7 @@ public interface CustomerMapper {
     CustomerDto convertToDto(Customer customer);
 
     @Mappings({
+            @Mapping(target = "version", ignore = true),
             @Mapping(target = "photo", ignore = true),
             @Mapping(target = "idPic", ignore = true),
             @Mapping(target = "contractPic", ignore = true)

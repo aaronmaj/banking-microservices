@@ -18,6 +18,7 @@ public interface AccountMapper {
 
     @Mappings({
             @Mapping(target = "id", ignore = true),
+            @Mapping(target = "version", ignore = true),
             @Mapping(target = "availableBalance", ignore = true),
             @Mapping(target = "currentBalance", ignore = true),
             @Mapping(target = "numberOfSignatories", ignore = true),

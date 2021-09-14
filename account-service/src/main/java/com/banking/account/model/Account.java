@@ -14,7 +14,10 @@ import java.time.LocalDate;
 @Entity
 public class Account {
     @Id
+    @GeneratedValue
     private Integer id;
+    @Version
+    private Integer version;
     @Column(name = "account_number", unique = true, nullable = false)
     private String accountNumber;
     @Column(name = "account_name", nullable = false)
@@ -22,7 +25,7 @@ public class Account {
     @Column(name = "customer_id", nullable = false)
     private String customerId;
     private String owner;
-    @Column(name="date_created", nullable = false)
+    @Column(name = "date_created", nullable = false)
     private LocalDate created;
     @Column(name = "account_type")
     @Enumerated(EnumType.STRING)
@@ -42,10 +45,9 @@ public class Account {
     private Integer numberOfSignatories;
     @Enumerated
     private Currency currency;
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="branch_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branch_id", nullable = false)
     private Branch branch;
-
 
 
 }
