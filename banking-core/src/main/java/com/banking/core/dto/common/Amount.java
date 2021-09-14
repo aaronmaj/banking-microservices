@@ -1,7 +1,11 @@
 package com.banking.core.dto.common;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor(staticName = "of")
 public class Amount {
-    public static Amount of(int amount, Currency currency) {
-        return null;
-    }
+    private int amount;
+    private  Currency currency;
+
+
 }
