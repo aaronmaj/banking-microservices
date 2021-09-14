@@ -185,13 +185,16 @@ public class AccountController {
     })
     @RolesAllowed("ADMIN")
     //@RequestHeader(value = "Accept-Language",required = false)Locale locale)
-    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ResponseStatus(HttpStatus.OK)
     @DeleteMapping(value = "/{accountNumber}")
-    public ResponseEntity<String> deleteAccount(@PathVariable("accountNumber") String accountNumber) {
+    public ResponseEntity<Void> deleteAccount(@PathVariable("accountNumber") String accountNumber) {
 
         if (accountService.getAccountByNumber(accountNumber) == null)
             return ResponseEntity.notFound().build();
-        return ResponseEntity.accepted().body(accountService.deleteAccount(accountNumber));
+
+        accountService.deleteAccount(accountNumber);
+        return ResponseEntity.ok().build();
+
     }
 
 }

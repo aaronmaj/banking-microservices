@@ -64,15 +64,12 @@ public class AccountService {
 
     public AccountDto updateAccount(AccountDto accountDto) {
         return mapper.convertToDto(accountRepository.save(mapper.convertToEntity(accountDto)));
+
     }
 
-    public String deleteAccount(String accountNumber) {
-        String responseMessage = null;
-        Optional<Account> account = accountRepository.findByAccountNumber(accountNumber);
-        if (account.isPresent())
-            accountRepository.delete(account.get());
-        responseMessage = String.format(messages.getMessage("account.delete.message", null, null), accountNumber);
-        return responseMessage;
+    public void deleteAccount(String accountNumber) {
+        accountRepository.findByAccountNumber(accountNumber)
+                .ifPresent(account ->accountRepository.delete(account));
     }
 
     @CircuitBreaker(name = "detailService", fallbackMethod = "buildFallbackDetails")
