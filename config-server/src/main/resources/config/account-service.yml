@@ -4,6 +4,13 @@ server:
     include-message: always
   forward-headers-strategy: framework
 
+logging:
+  level:
+    root: INFO
+    com.banking: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
 # API documentation
 api:
   common:
@@ -100,7 +107,7 @@ springdoc:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop # none
+      ddl-auto: update # none
       naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
 
     database: POSTGRESQL
@@ -117,6 +124,7 @@ spring:
     testWhileIdle: true
     validationQuery: SELECT 1
     continue-on-error: false
+    hikari.initializationFailTimeout: 60000
 
   database:
     driverClassName: org.postgresql.Driver
