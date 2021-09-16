@@ -1,18 +1,13 @@
-# stage 1
-# Base image containing the JDK Runtime
+# syntax=docker/dockerfile:1
 FROM openjdk:11-slim as builder
 
-# Application jar file
 ARG JAR_FILE
 LABEL maintainer="Aaron MAJAMBO <aaronmajb@gmail.com>"
-
-# Add the application's jar to the container
 COPY ${JAR_FILE} app.jar
 #unpackage jar file
 RUN mkdir -p target/dependency && (cd target/dependency; jar -xf /app.jar)
 
-#stage 2
-#Same Java runtime
+
 FROM openjdk:11-slim
 
 #Add volume pointing to /tmp
