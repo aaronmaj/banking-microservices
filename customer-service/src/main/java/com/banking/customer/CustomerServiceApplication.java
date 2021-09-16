@@ -13,7 +13,7 @@ import org.springframework.cloud.stream.messaging.Source;
 @SpringBootApplication
 @EnableDiscoveryClient
 @RefreshScope
-@EnableBinding(Source.class)
+//@EnableBinding(Source.class)
 public class CustomerServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(CustomerServiceApplication.class, args);

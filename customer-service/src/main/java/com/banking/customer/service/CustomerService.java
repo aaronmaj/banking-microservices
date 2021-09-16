@@ -27,12 +27,14 @@ public class CustomerService {
     Tracer tracer;
     private final CustomerRepository customerRepository;
     private final CustomerMapper mapper;
-    @Autowired
-    SimpleSourceBean simpleSourceBean;
+    //@Autowired
+    //SimpleSourceBean simpleSourceBean;
 
     public CustomerDto createCustomer(CustomerDto customerDto) {
-        Customer customer = customerRepository.save(mapper.convertToEntity(customerDto));
-        simpleSourceBean.publishCustomerChange(Action.CREATED, customer.getCustomerId());
+        Customer customer=mapper.convertToEntity(customerDto);
+        customer.setNewEntity(true);
+        customer = customerRepository.save(customer);
+        //simpleSourceBean.publishCustomerChange(Action.CREATED, customer.getCustomerId());
         return mapper.convertToDto(customer);
     }
 
@@ -48,7 +50,7 @@ public class CustomerService {
         Optional<Customer> opt = null;
         try {
             opt = customerRepository.findById(customerId);
-            simpleSourceBean.publishCustomerChange(Action.GET, customerId);
+            //simpleSourceBean.publishCustomerChange(Action.GET, customerId);
 
         } finally {
             newSpan.tag("peer.service", "postgres");
@@ -60,7 +62,8 @@ public class CustomerService {
 
     public CustomerDto update(CustomerDto customerDto) {
         Customer customer = customerRepository.save(mapper.convertToEntity(customerDto));
-        simpleSourceBean.publishCustomerChange(Action.UPDATED, customer.getCustomerId());
+        logger.info("Customer information updated successfully......");
+       // simpleSourceBean.publishCustomerChange(Action.UPDATED, customer.getCustomerId());
         return mapper.convertToDto(customer);
     }
 
@@ -87,7 +90,7 @@ public class CustomerService {
 
     public void deleteCustomer(String customerId) {
         customerRepository.deleteById(customerId);
-        simpleSourceBean.publishCustomerChange(Action.DELETED, customerId);
+        //simpleSourceBean.publishCustomerChange(Action.DELETED, customerId);
     }
 
 

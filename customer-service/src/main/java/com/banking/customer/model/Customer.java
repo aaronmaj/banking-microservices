@@ -4,6 +4,7 @@ import com.banking.core.dto.customer.CustType;
 import com.banking.core.dto.customer.IdType;
 import com.banking.core.dto.customer.Gender;
 import lombok.Data;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,11 +12,12 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer implements Persistable {
     @Id
-    @Column(name = "customer_id")
-    private String customerId;
+    private String id;
     @Version
+    @Transient
+    private boolean newEntity;
     private Integer version;
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -48,4 +50,9 @@ public class Customer {
     @Column(name = "contract_pic")
     private byte[] contractPic;
     private String nationality;
+
+    public boolean isNew() {
+        return newEntity;
+    }
+
 }

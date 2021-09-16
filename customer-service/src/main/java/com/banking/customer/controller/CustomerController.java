@@ -134,8 +134,13 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(value = "/{customerId}")
     ResponseEntity<CustomerDto> updateCustomer(@PathVariable("customerId") String customerId, @RequestBody CustomerDto customerDto) {
-        if (customerService.findById(customerId) != null) {
+        log.info("Updating customer information {}",customerDto);
+
+        CustomerDto customerToUpdate=customerService.findById(customerId);
+        if( customerToUpdate!= null) {
+
             return ResponseEntity.ok(customerService.update(customerDto));
+
         } else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
     }

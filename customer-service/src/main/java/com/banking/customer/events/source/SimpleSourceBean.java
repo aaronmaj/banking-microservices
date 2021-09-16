@@ -9,9 +9,9 @@ import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class SimpleSourceBean {
-
+/*
     private static final Logger logger = LoggerFactory.getLogger(SimpleSourceBean.class);
     private final Source source;
 
@@ -30,5 +30,5 @@ public class SimpleSourceBean {
 
         source.output().send(MessageBuilder.withPayload(change).build());
     }
-
+*/
 }
