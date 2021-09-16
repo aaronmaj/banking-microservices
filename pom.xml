@@ -19,5 +19,6 @@
         <module>authorization-server</module>
         <module>banking-service</module>
         <module>transaction-service</module>
+        <module>spi-impl</module>
     </modules>
 </project>

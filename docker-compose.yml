@@ -124,6 +124,9 @@ services:
     container_name: redis
     ports:
       - 6379:6379
+    #command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+    - redis-data:/data
     networks:
       backend:
         aliases:
@@ -169,7 +172,7 @@ services:
       - "8082:8082"
     networks:
       - backend
-  operationservice:
+  bankingservice:
     image: banking/banking-service:0.0.1-SNAPSHOT
     container_name: banking-service
     environment:
@@ -252,6 +255,7 @@ services:
 volumes:
   esdata1:
     driver: local
+  redis-data:
 networks:
   backend:
     driver: bridge
