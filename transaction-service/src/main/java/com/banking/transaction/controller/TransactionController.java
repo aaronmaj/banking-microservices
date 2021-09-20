@@ -1,4 +1,4 @@
-package com.banking.transactionservice.controller;
+package com.banking.transaction.controller;
 
 import com.banking.core.dto.transaction.TransactionDto;
 import org.springframework.web.bind.annotation.CrossOrigin;

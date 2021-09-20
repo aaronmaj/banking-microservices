@@ -1,4 +1,4 @@
-package com.banking.transactionservice;
+package com.banking.transaction;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
