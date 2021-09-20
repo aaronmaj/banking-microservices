@@ -19,6 +19,7 @@ It is built as a `maven multi-modules project`.
 7. A Discovery server for service registry and client Load-balancing (`eureka-server`)
 8. An API Gateway server (`gateway-server`)
 9. A Fronted Web application (`ReactJS`) 
+10. A Spring MVC application (`banking-web`) with Thymeleaf templates
 
 ### Contibutions
 
