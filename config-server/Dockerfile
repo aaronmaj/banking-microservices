@@ -1,4 +1,4 @@
-FROM openjdk:11-slim as builder
+FROM adoptopenjdk:11-jre-hotspot as builder
 
 ARG JAR_FILE
 
@@ -9,7 +9,7 @@ COPY ${JAR_FILE}  app.jar
 RUN mkdir -p /target/dependency && (cd /target/dependency; jar -xf /app.jar)
 
 
-FROM openjdk:11-slim
+FROM adoptopenjdk:11-jre-hotspot
 
 VOLUME /tmp
 

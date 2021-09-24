@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(staticName = "of")
 public class Amount {
-    private int amount;
+    private int value;
     private  Currency currency;
 
 
