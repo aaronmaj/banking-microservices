@@ -32,6 +32,7 @@
         <keycloak.version>15.0.0</keycloak.version>
         <asciidoctor-plugin.version>2.2.1</asciidoctor-plugin.version>
         <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
+        <git-commit-id.plugin.version>4.9.10</git-commit-id.plugin.version>
     </properties>
 
     <dependencies>
@@ -329,6 +330,13 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- tag::git[] -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>${git-commit-id.plugin.version}</version>
+            </plugin>
+            <!-- end::git[] -->
         </plugins>
     </build>
     <!--repositories>
