@@ -4,13 +4,35 @@
       lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Banking Services</title>
+    <title>Spring Boot Banking Services</title>
     <link rel="stylesheet" type="text/css"
           href="webjars/bootstrap/5.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
           href="webjars/bootstrap/5.1.0/css/bootstrap-theme.min.css">
 </head>
 <body>
-<h1>Welcome to Banking Web</h1>
+    <h2>Customer Management</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Id Number</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.customerId}"></td>
+                <td th:text="${customer.customerName}"></td>
+                <td th:text="${customer.idNumber}"></td>
+                <td th:text="${customer.address}"></td>
+                <td th:text="${customer.city}"></td>
+                <td th:text="${customer.country}"></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
