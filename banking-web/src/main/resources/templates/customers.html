@@ -9,30 +9,49 @@
           href="webjars/bootstrap/5.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
           href="webjars/bootstrap/5.1.0/css/bootstrap-theme.min.css">
+    <script type="text/javascript">
+        window.onload = setupRefresh;
+        
+        function setupRefresh() {
+            setTimeout("refreshPage();", 5000); // refresh rate in milliseconds
+        }
+        
+        function refreshPage() {
+            window.location = location.href;
+        } </script>
+
 </head>
 <body>
+<div class="jumbotron">
     <h2>Customer Management</h2>
-    <table>
+</div>
+<div class="container theme-showcase" role="main" th:unless="${#lists.isEmpty(customers)}">
+    <table class="table table-striped">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Id Number</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>Country</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Id Number</th>
+            <th>Telephone</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Country</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="customer : ${customers}">
-                <td th:text="${customer.customerId}"></td>
-                <td th:text="${customer.customerName}"></td>
-                <td th:text="${customer.idNumber}"></td>
-                <td th:text="${customer.address}"></td>
-                <td th:text="${customer.city}"></td>
-                <td th:text="${customer.country}"></td>
-            </tr>
+        <tr th:each="customer : ${customers}">
+            <td th:text="${customer.customerId}"></td>
+            <td th:text="${customer.customerName}"></td>
+            <td th:text="${customer.custType}"></td>
+            <td th:text="${customer.idNumber}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td th:text="${customer.address}"></td>
+            <td th:text="${customer.city}"></td>
+            <td th:text="${customer.country}"></td>
+        </tr>
         </tbody>
     </table>
+</div>
 </body>
 </html>
