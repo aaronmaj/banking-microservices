@@ -77,7 +77,7 @@ public class AccountService {
     @Retry(name = "retryDetailService", fallbackMethod = "buildFallbackDetails")
     @Bulkhead(name = "bulkheadDetailService", type = THREADPOOL, fallbackMethod = "buildFallbackDetails")
     public CustomerDto getPersonalDetails(String accountNumber) throws TimeoutException {
-        logger.debug("getLicensesByOrganization Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+        logger.debug("getPersonalDetails Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         return getCustomer(accountRepository.findByAccountNumber(accountNumber).get().getCustomerId());
     }
 
