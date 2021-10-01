@@ -29,7 +29,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 @ComponentScan(basePackages = {"com.banking.core.*", "com.banking.account.*"})
 @EnableCaching
 @EnableBinding(Sink.class)
-@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AccountServiceApplication {
 
     private final Logger logger = LoggerFactory.getLogger(AccountServiceApplication.class);
