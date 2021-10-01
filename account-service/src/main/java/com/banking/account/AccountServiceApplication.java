@@ -15,6 +15,7 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 
 /**
@@ -28,6 +29,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 @ComponentScan(basePackages = {"com.banking.core.*", "com.banking.account.*"})
 @EnableCaching
 @EnableBinding(Sink.class)
+@EnableAspectJAutoProxy
 public class AccountServiceApplication {
 
     private final Logger logger = LoggerFactory.getLogger(AccountServiceApplication.class);
