@@ -20,7 +20,7 @@ public class CustomerDto {
     private String lastName;
     @JsonProperty("customer_name")
     private String customerName;
-    @JsonProperty("customer_Type")
+    @JsonProperty("cust_type")
     private CustType custType;
     @JsonProperty("date_of_birth")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
