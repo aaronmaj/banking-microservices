@@ -2,10 +2,10 @@
 
 ## Description
 
-This project encompasses a set of microservices with `Spring Boot`,`Docker`, `Reactive Spring Boot`, `ReactJs` and `Javascript`. \
-The project uses `Java 11` and is based on `Spring Boot 2.5.4` and `Spring Cloud 2020.0.3`.\
-it is a compilation of training material on `Web Services`  for microfinances adapted for a `Cloud Native` environment. \
-It is built as a `maven multi-modules project`.
+- This project encompasses a set of microservices with `Spring Boot`,`Docker`, `Reactive Spring Boot`, `ReactJs` and `Javascript`. \
+- The project uses `Java 11` and is based on `Spring Boot 2.5.5` and `Spring Cloud 2020.0.4`.\
+- It is a compilation of training material on `Web Services`  for microfinances adapted for a `Cloud Native` environment. \
+- The project is built as a `maven multi-modules project`.
 
 > For the Web Services version (SOAP and REST) see:https://github.com/aaronmaj/banking-services-training
 
@@ -16,7 +16,7 @@ It is built as a `maven multi-modules project`.
 -  Transaction service module(`transaction-service`)
 -  An Authorization Server(`authorization-server`)
 -  A Configuration Server (`config-server`)
--  A Discovery server for service registry and client Load-balancing (`eureka-server`)
+-  A Discovery server for service registry and client Load-balancing based on Netflix Eureka(`eureka-server`)
 -  An Api Gateway Server (`gateway-server`)
 -  A Fronted Web application (`ReactJS`) 
 -  A Spring MVC application (`banking-web`) with Thymeleaf templates
