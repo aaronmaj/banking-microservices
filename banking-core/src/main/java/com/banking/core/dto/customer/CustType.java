@@ -1,15 +1,30 @@
 package com.banking.core.dto.customer;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@Getter
 public enum CustType {
-    INDIVIDUAL("Individual"), CORPORATE("Corporate"), ASSOCIATION("Association");
-    private String name;
+    INDIVIDUAL("Individual"),
+    CORPORATE("Corporate"),
+    ASSOCIATION("Association");
 
-    CustType(String name) {
-        this.name = name;
+    private String value;
+
+    CustType(String value) {
+        this.value = value;
     }
 
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }
