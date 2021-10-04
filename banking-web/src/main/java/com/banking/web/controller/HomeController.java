@@ -1,19 +1,20 @@
 package com.banking.web.controller;
 
-import com.banking.core.dto.customer.CustType;
 import com.banking.core.dto.customer.CustomerDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(value = "/")
@@ -30,7 +31,8 @@ public class HomeController {
                 null,
                 responseType
         ).getBody();
-        customers.stream().forEach(customerDto -> System.out.printf("%s %s%n",customerDto.getCustomerId(),customerDto.getCustomerName()));
+        log.info("Customers : {}", customers);
+        //customers.stream().forEach(customerDto -> System.out.printf("%s %s%n",customerDto.getCustomerId(),customerDto.getCustomerName(),customerDto.getCustType().getValue()));
         model.addAttribute("customers", customers);
 
         return "customers";

@@ -1,3 +1,5 @@
 account.service.url: "http://localhost:8081/v1/accounts"
 account.service.username: ""
 account.service.passwor: ""
+
+logging.level.org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG

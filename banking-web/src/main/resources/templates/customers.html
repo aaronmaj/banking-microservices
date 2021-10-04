@@ -45,10 +45,10 @@
         <tr th:each="customer : ${customers}">
             <td th:text="${customer.customerId}"></td>
             <td th:text="${customer.customerName}"></td>
-            <td th:text="${customer.custType.getName()}"></td>
+            <td th:text="${customer.custType.value}"></td>
             <td th:text="${customer.idNumber}"></td>
-            <td th:text="${customer.idType.getType()}"></td>
-            <td th:text="${customer.gender.getDescription()}"></td>
+            <td th:text="${customer.idType.value}"></td>
+            <td th:text="${customer.gender.value}"></td>
             <td th:text="${customer.phoneNumber}"></td>
             <td th:text="${customer.address}"></td>
             <td th:text="${customer.city}"></td>
