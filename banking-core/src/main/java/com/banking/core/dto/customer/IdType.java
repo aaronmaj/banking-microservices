@@ -1,20 +1,23 @@
 package com.banking.core.dto.customer;
 
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum IdType {
-    NATIONAL_ID(1),PASSPORT(2),SERVICE_DOCUMENT(3);
+    NATIONAL_ID("National ID"),PASSPORT("Passport"),SERVICE_DOCUMENT("Service Documents");
 
-    private Integer id;
+    private String value;
 
-    IdType(Integer id) {
-        this.id = id;
+    IdType(String id) {
+        this.value = id;
     }
 
-    public Integer getId() {
-        return id;
+    @JsonValue
+    public String getValue() {
+        return value;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setValue(String value) {
+        this.value = value;
     }
 }
