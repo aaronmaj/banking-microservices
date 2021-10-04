@@ -1,20 +1,23 @@
 package com.banking.core.dto.customer;
 
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum Gender {
-  MALE("Male"), FEMALE("Female");
+    MALE("Male"), FEMALE("Female");
 
-  private String description;
+    private String value;
 
-  Gender(String description) {
-    this.description = description;
-  }
+    Gender(String value) {
+        this.value = value;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    @JsonValue
+    public String getValue() {
+        return value;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public void setValue(String value) {
+        this.value = value;
+    }
 }
