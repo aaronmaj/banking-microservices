@@ -16,9 +16,10 @@ public class Customer implements Persistable {
     @Id
     private String id;
     @Version
+    private Integer version;
     @Transient
     private boolean newEntity;
-    private Integer version;
+
     @Column(name = "first_name", nullable = false)
     private String firstName;
     @Column(name = "last_name", nullable = false)
