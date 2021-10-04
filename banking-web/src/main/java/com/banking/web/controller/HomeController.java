@@ -19,13 +19,6 @@ public class HomeController {
 
     private final RestTemplate restTemplate;
 
-    @ModelAttribute
-    public void addCustTypesToModel(Model model){
-        CustType [] types = CustType.values();
-        for (CustType type:types) {
-            model.addAttribute(type.toString().toString(),null);
-        }
-    }
     @GetMapping("/customers")
     public String home(Model model) {
         ParameterizedTypeReference<List<CustomerDto>> responseType =
