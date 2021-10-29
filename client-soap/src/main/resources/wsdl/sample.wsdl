@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy"
+             xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurityutility-1.0.xsd"
+             xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:tns="http://emiage.org/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" targetNamespace="http://emiage.org/"
+             name="SampleWebService"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://jaxb.dev.java.net/array"
+                        schemaLocation="SampleWebService_schema1.xsd"/>
+        </xsd:schema>
+        <xsd:schema>
+            <xsd:import namespace="http://emiage.org/"
+                        schemaLocation="SampleWebService_schema2.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="findProducts">
+        <part name="parameters" element="tns:findProducts"/>
+    </message>
+    <message name="findProductsResponse">
+        <part name="parameters" element="tns:findProductsResponse"/>
+    </message>
+    <message name="addProduct">
+        <part name="parameters" element="tns:addProduct"/>
+    </message>
+    <message name="addProductResponse">
+        <part name="parameters" element="tns:addProductResponse"/>
+    </message>
+    <message name="findProductsByCompatibility">
+        <part name="parameters" element="tns:findProductsByCompatibility"/>
+    </message>
+    <message name="findProductsByCompatibilityResponse">
+        <part name="parameters" element="tns:findProductsByCompatibilityResponse"/>
+    </message>
+    <message name="getProductDetails">
+        <part name="parameters" element="tns:getProductDetails"/>
+    </message>
+    <message name="getProductDetailsResponse">
+        <part name="parameters" element="tns:getProductDetailsResponse"/>
+    </message>
+    <portType name="SampleWebService">
+        <operation name="findProducts">
+            <input wsam:Action="http://emiage.org/SampleWebService/findProductsRequest"
+                   message="tns:findProducts"/>
+            <output wsam:Action="http://emiage.org/SampleWebService/findProductsResponse"
+                    message="tns:findProductsResponse"/>
+        </operation>
+        <operation name="addProduct">
+            <input wsam:Action="http://emiage.org/SampleWebService/addProductRequest"
+                   message="tns:addProduct"/>
+            <output wsam:Action="http://emiage.org/SampleWebService/addProductResponse"
+                    message="tns:addProductResponse"/>
+        </operation>
+        <operation name="findProductsByCompatibility">
+            <input wsam:Action="http://emiage.org/SampleWebService/findProductsByCompatibilityRequest"
+                   message="tns:findProductsByCompatibility"/>
+            <output wsam:Action="http://emiage.org/SampleWebService/findProductsByCompatibilityResponse
+" message="tns:findProductsByCompatibilityResponse"/>
+        </operation>
+        <operation name="getProductDetails">
+            <input
+                    wsam:Action="http://emiage.org/SampleWebService/getProductDetailsRequest"
+                    message="tns:getProductDetails"/>
+            <output
+                    wsam:Action="http://emiage.org/SampleWebService/getProductDetailsResponse"
+                    message="tns:getProductDetailsResponse"/>
+        </operation>
+    </portType>
+    <binding name="SampleWebServicePortBinding" type="tns:SampleWebService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+                      style="document"/>
+        <operation name="findProducts">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="addProduct">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="findProductsByCompatibility">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getProductDetails">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="SampleWebService">
+        <port name="SampleWebServicePort" binding="tns:SampleWebServicePortBinding">
+            <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+        </port>
+    </service>
+</definitions>

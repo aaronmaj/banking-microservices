@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://emiage.org/"
+           xmlns:tns="http://emiage.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:ns1="http://jaxb.dev.java.net/array">
+    <xs:import namespace="http://jaxb.dev.java.net/array"
+               schemaLocation="SampleWebService_schema1.xsd"/>
+    <xs:element name="addProduct" type="tns:addProduct"/>
+    <xs:element name="addProductResponse" type="tns:addProductResponse"/>
+    <xs:element name="findProducts" type="tns:findProducts"/>
+    <xs:element name="findProductsByCompatibility"
+                type="tns:findProductsByCompatibility"/>
+    <xs:element name="findProductsByCompatibilityResponse"
+                type="tns:findProductsByCompatibilityResponse"/>
+    <xs:element name="findProductsResponse" type="tns:findProductsResponse"/>
+    <xs:element name="getProductDetails" type="tns:getProductDetails"/>
+    <xs:element name="getProductDetailsResponse"
+                type="tns:getProductDetailsResponse"/>
+    <xs:complexType name="addProduct">
+        <xs:sequence>
+            <xs:element name="parameter" type="tns:product" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="product">
+        <xs:sequence/>
+    </xs:complexType>
+    <xs:complexType name="addProductResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="findProductsByCompatibility">
+        <xs:sequence>
+            <xs:element name="parameter" type="ns1:stringArray" nillable="true"
+                        minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="findProductsByCompatibilityResponse">
+        <xs:sequence>
+            <xs:element name="return" type="tns:product" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="getProductDetails">
+        <xs:sequence>
+            <xs:element name="pId" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="getProductDetailsResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="findProducts">
+        <xs:sequence>
+            <xs:element name="criteria" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="findProductsResponse">
+        <xs:sequence>
+            <xs:element name="return" type="tns:product" nillable="true" minOccurs="0"
+                        maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
