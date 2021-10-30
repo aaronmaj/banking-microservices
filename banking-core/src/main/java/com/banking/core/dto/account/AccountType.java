@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum AccountType {
     CHECKING("Checking"),
     SAVINGS("Savings"),
+    FIXED_DEPOSIT("Fixed Deposit"),
+    RECURRING_DEPOSIT("Recurring Deposit"),
     LOAN("Loan"),
     CERTIFICATE_OF_DEPOSIT("Certificate of deposit");
 
