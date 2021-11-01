@@ -13,7 +13,7 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
 
-    public Transaction transfer(String source, String target, BigDecimal amount){
+    public Transaction transfer(String source, String destination, Double amount){
         return  null;
     }
 }

@@ -20,5 +20,6 @@
         <module>banking-service</module>
         <module>transaction-service</module>
         <module>spi-impl</module>
+        <module>banking-web</module>
     </modules>
 </project>
