@@ -29,6 +29,7 @@
         <springdoc.openapi.version>1.5.10</springdoc.openapi.version>
         <asciidoctor-plugin.version>2.2.1</asciidoctor-plugin.version>
         <spring-restdocs.version>2.0.5.RELEASE</spring-restdocs.version>
+        <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
         <resilience4j.version>1.7.0</resilience4j.version>
         <keycloak.version>15.0.0</keycloak.version>
     </properties>
@@ -252,6 +253,31 @@
                         <version>${spring-restdocs.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.outputDirectory}/static/docs
+                            </outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>
+                                        ${project.build.directory}/generated-docs
+                                    </directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
