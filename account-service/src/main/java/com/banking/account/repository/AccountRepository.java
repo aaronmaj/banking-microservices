@@ -2,6 +2,7 @@ package com.banking.account.repository;
 
 import com.banking.account.model.Account;
 import com.banking.account.model.Customer;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface AccountRepository extends CrudRepository<Account,Integer> {
-
+    @Cacheable(value = "accounts", key = "#accountNumber")
     public Optional<Account> findByAccountNumber(String accountNumber);
 
     @Transactional(readOnly = true)

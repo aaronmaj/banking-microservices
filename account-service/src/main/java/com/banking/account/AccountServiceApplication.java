@@ -13,10 +13,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.*;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author Aaron MAJAMBO aaronmajb@gmail.com
@@ -30,12 +29,13 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 @EnableCaching
 @EnableBinding(Sink.class)
 @EnableAspectJAutoProxy(proxyTargetClass = true)
+@EnableTransactionManagement
 public class AccountServiceApplication {
 
     private final Logger logger = LoggerFactory.getLogger(AccountServiceApplication.class);
 
-
     public static void main(String[] args) {
+
         //System.setProperty("spring.config.name","account-service-dev");
         SpringApplication.run(AccountServiceApplication.class, args);
     }
