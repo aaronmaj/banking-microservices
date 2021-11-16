@@ -16,3 +16,6 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false # Ribbon is still the default client-side loadbalancer, desable it
+    gateway:
+      default-filters:
+        
