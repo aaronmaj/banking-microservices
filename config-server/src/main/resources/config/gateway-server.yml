@@ -8,6 +8,19 @@ spring:
       #discovery.locator:
         #enabled: true  # Use the  automated routes created with the Eureka service ID
         #lowerCaseServiceId: true
+      default-filters:
+        - name: Retry
+          args:
+            retries: 3
+            method: GET
+            series: SERVER_ERROR
+            exceptions: java.io.IOException, java.util.concurrent.TimeoutException
+            backoff:
+              firstBackoff: 50ms
+              maxBackoff: 500ms
+              factor: 2
+              basedOnPreviousValue: false
+
       routes:
       - id: eureka-api
         uri: http://${app.eureka-server}:8761
