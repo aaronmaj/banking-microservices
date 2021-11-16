@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class TransferMonitoringAspect {
+public class TransactionMonitoringAspect {
 
     @Pointcut("execution(* com.banking.transaction.service .TransactionService.transfer(..))")
     public void transfer() { }

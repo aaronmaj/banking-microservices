@@ -1,6 +1,7 @@
 package com.banking.transaction.model;
 
 import com.banking.core.dto.transaction.Direction;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import com.banking.core.dto.common.Amount;
@@ -9,6 +10,7 @@ import com.banking.core.dto.transaction.TransactionType;
 
 import java.time.LocalDate;
 
+@Data
 public class Transaction {
     @Id
     private String transactionId;
