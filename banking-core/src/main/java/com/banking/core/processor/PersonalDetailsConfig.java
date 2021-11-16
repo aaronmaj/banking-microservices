@@ -1,2 +1,7 @@
-package com.banking.core.processor;public class PersonalDetailsConfig {
+package com.banking.core.processor;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class PersonalDetailsConfig {
 }
