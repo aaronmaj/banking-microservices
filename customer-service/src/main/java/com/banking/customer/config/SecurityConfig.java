@@ -1,5 +1,5 @@
 package com.banking.customer.config;
-
+/*
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
@@ -22,10 +22,12 @@ import org.springframework.security.web.authentication.session.RegisterSessionAu
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(jsr250Enabled = true)
-public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(jsr250Enabled = true)
 
+ */
+public class SecurityConfig {//extends KeycloakWebSecurityConfigurerAdapter {
+/*
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
@@ -51,4 +53,6 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     public KeycloakConfigResolver KeycloakConfigResolver() {
         return new KeycloakSpringBootConfigResolver();
     }
+
+ */
 }

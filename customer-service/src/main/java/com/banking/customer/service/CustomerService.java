@@ -60,11 +60,30 @@ public class CustomerService {
         return (opt.isPresent()) ? mapper.convertToDto(opt.get()) : null;
     }
 
-    public CustomerDto update(CustomerDto customerDto) {
-        Customer customer = customerRepository.save(mapper.convertToEntity(customerDto));
+    public CustomerDto update(String customerId, CustomerDto customerDto) {
+        Customer body = mapper.convertToEntity(customerDto);
+        Customer existing = customerRepository.findById(customerId).get();
+        existing.setFirstName(body.getFirstName());
+        existing.setLastName(body.getLastName());
+        existing.setCustomerName(body.getCustomerName());
+        existing.setAddress(body.getAddress());
+        existing.setCity(body.getCity());
+        existing.setCountry(body.getCountry());
+        existing.setCustType(body.getCustType());
+        existing.setDistrict(body.getDistrict());
+        existing.setDateOfBirth(body.getDateOfBirth());
+        existing.setEmail(body.getEmail());
+        existing.setGender(body.getGender());
+        existing.setId(body.getId());
+        existing.setIdDeliveryDate(body.getIdDeliveryDate());
+        existing.setPhoneNumber(body.getPhoneNumber());
+        existing.setOccupation(body.getOccupation());
+        existing.setNationality(body.getNationality());
+
+        Customer updatedCustomer = customerRepository.save(existing);
         logger.info("Customer information updated successfully......");
        // simpleSourceBean.publishCustomerChange(Action.UPDATED, customer.getCustomerId());
-        return mapper.convertToDto(customer);
+        return mapper.convertToDto(updatedCustomer);
     }
 
     public CustomerDto uploadImage(String customerId, byte[] image) {

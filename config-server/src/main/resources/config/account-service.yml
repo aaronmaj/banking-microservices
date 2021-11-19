@@ -209,7 +209,7 @@ keycloak.realm: banking-realm
 keycloak.auth-server-url: http://localhost:8180/auth
 keycloak.ssl-required: external
 keycloak.resource: banking-service #client ID
-keycloak.credentials.secret: 5e6920b5-9385-4095-89f8-dab6db37e986 #client secret
+keycloak.credentials.secret: b5460e47-e2b0-4791-b927-25be79148b86 #client secret
 keycloak.use-resource-role-mappings: true
 keycloak.bearer-only: true
 

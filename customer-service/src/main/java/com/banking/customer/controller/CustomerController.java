@@ -5,6 +5,7 @@ import com.banking.customer.service.CustomerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ByteArrayResource;
@@ -27,6 +28,7 @@ import java.util.List;
 @RequestMapping(path = "v1/customers")
 @RequiredArgsConstructor
 @CrossOrigin
+@Tag(name = "Customers", description = "Endpoints for customer operations")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -44,7 +46,7 @@ public class CustomerController {
             @ApiResponse(responseCode = "422", description = "${api.responseCodes.unprocessableEntity.description}")
     })
     @GetMapping
-    public ResponseEntity<List<CustomerDto>> getAll() {
+    public ResponseEntity<List<CustomerDto>> findAll() {
         return ResponseEntity.ok(customerService.findAll());
     }
 
@@ -139,7 +141,7 @@ public class CustomerController {
         CustomerDto customerToUpdate=customerService.findById(customerId);
         if( customerToUpdate!= null) {
 
-            return ResponseEntity.ok(customerService.update(customerDto));
+            return ResponseEntity.ok(customerService.update(customerId, customerDto));
 
         } else throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
