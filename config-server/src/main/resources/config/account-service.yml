@@ -120,6 +120,9 @@ spring:
         se_sql_comments: true
 
   datasource:
+    url: jdbc:postgresql://localhost:5432/banking_db
+    username: dbtest
+    password: dbtest
     platform: postgres
     testWhileIdle: true
     validationQuery: SELECT 1

@@ -42,11 +42,13 @@ spring:
         - Path=/eureka/**
 
       - id: account-service
-        uri: lb://account-service
+        uri: lb://account-service # lb:// is used to direct Spring Cloud Gateway to use the client-side load balancer to look up the destination in the discovery service.
         predicates:
         - Path=/account/**
         filters:
         - RewritePath=/account/(?<path>.*), /$\{path}
+         # Allow the propagation of the authorization HTTP header remove it
+        # The gateway blocks the propagation of all the three values by default: Cookie, Set-Cookie, and Authorization
         - RemoveRequestHeader= Cookie,Set-Cookie
 
       - id: account-service-swagger-ui
