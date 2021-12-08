@@ -12,10 +12,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.annotation.security.RolesAllowed;
 import java.net.URI;
@@ -138,11 +140,16 @@ public class AccountController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     @RolesAllowed({"ADMIN", "USER"})
-    public ResponseEntity<AccountDto> createAccount(@RequestBody AccountDto accountDto) {
+    public ResponseEntity<?> createAccount(@RequestBody AccountDto accountDto) {
 
-        accountService.createAccount(accountDto);
-        URI uri = URI.create("/v1/accounts/" + accountDto.getAccountNumber());
-        return ResponseEntity.created(uri).body(accountDto);
+        AccountDto account= accountService.createAccount(accountDto);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.setLocation(ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/accountNumber").buildAndExpand(account.getAccountNumber()).toUri());
+
+        return new ResponseEntity<>(accountDto, responseHeaders, HttpStatus.CREATED);
+        //URI uri = URI.create("/v1/accounts/" + accountDto.getAccountNumber());
+        //return ResponseEntity.created(uri).body(accountDto);
     }
 
     /**

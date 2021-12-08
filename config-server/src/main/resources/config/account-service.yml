@@ -215,6 +215,9 @@ keycloak.resource: banking-service #client ID
 keycloak.credentials.secret: b5460e47-e2b0-4791-b927-25be79148b86 #client secret
 keycloak.use-resource-role-mappings: true
 keycloak.bearer-only: true
+#keycloak.truststore=${server.ssl.trust-store}
+#keycloak.truststore-password=${server.ssl.trust-store-password}
+
 
 #security.oauth2.resource.userInfoUri: http://authenticationservice:8082/user
 
