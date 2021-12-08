@@ -1,0 +1,66 @@
+= Customer Service API Documentation
+Aaron MAJAMBO <aaronmajb@gmail.com>
+
+== HTTP Verbs
+
+This microservice adheres as closely as possible to standard HTTP and
+REST conventions in its use of HTTP verbs.
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve customer resource(s).
+
+| `POST`
+| Used to create a new customer resource.
+
+| `PUT`
+| Used to execute an action on an existing customer resource.
+
+| `DELETE`
+| Used to delete a resource.
+|===
+
+== HTTP Status Codes
+
+This application tries to adhere as closely as possible to standard HTTP and
+REST conventions in its use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully.
+
+| `201 Created`
+| A new customer resource has been created successfully..
+
+| `204 No Content`
+| The request completed successfully, but there is no content included in the
+response.
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing
+further information.
+
+| `401 Unauthorized`
+| The request requires authentication which is not provided correctly.
+
+| `403 Forbidden`
+| The authenticated is not authorized to use the requested resource.
+
+| `404 Not Found`
+| The requested resource did not exist.
+|===
+
+== Security
+
+All REST API endpoints are secured by an Identity and Access Management (IAM) `OAuth2/OpenID Connect` resource server.
+To access the endpoints each request must include an
+_Authorization_ header of type _Bearer_ `Token`.
+
+```
+Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJyaDFtSExzWjczU1hTZnUxc2RTbmpMMkpCU0VuNFRvOGhtbnFVejZ2LXU0In0
+```
+
