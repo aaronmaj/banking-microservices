@@ -28,7 +28,7 @@ public class ResponseFilter {
         return (exchange, chain) -> {
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
                 String traceId =
-                      tracer.currentSpan()
+                        tracer.currentSpan()
                                 .context()
                                 .traceIdString();
                 HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
