@@ -26,7 +26,11 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(jsr250Enabled = true)
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true, //support for Spring’s @PreAuthorize and @PostAuthorize
+        securedEnabled = true, //support for the @Secured annotation
+        jsr250Enabled = true // support for the @RolesAllowed annotation
+)
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
