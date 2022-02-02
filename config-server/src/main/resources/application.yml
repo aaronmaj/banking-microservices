@@ -7,14 +7,25 @@ spring:
   cloud:
     config:
       server: #Local configuration: This locations can either of classpath or locations in the filesystem.
-        native:
+        #native:
           #Reads from a specific filesystem folder
           #search-locations:file://${HOME}/config-repo/spring-cloud-config
           #search-locations: classpath:/config  if the configuration files are under /resources/config folder
-          search-locations: classpath:/config
-        #git:
-          #uri: https://github.com/aaronmaj/banking-configs.git
-          #search-paths: account-service
+          #search-locations: classpath:/config
+        git:
+          uri: https://github.com/aaronmaj/banking-configs
+          default-label: main
+          search-paths: '{application}'
+          #- configs*  if configuratin files are enclosed in configs like folder
+          repos:
+            qa:
+              pattern: '*/qa'
+              uri: https://github.com/aaronmaj/banking-configs-qa
+              searchPaths:
+                - 'configs*'
+            local:
+              pattern: local*
+              uri: file://${HOME}/Documents/Projects/banking-configs
 
 logging:
   level:
