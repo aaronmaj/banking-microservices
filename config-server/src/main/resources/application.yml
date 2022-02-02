@@ -26,6 +26,8 @@ spring:
             local:
               pattern: local*
               uri: file://${HOME}/Documents/Projects/banking-configs
+        encrypt:
+          enabled: false # desable server side decryption
 
 logging:
   level:
