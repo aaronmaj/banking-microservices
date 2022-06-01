@@ -2,7 +2,7 @@ spring:
   application:
     name: eureka-server
   config:
-    import: "configserver:"
+    import: optional:configserver:http://localhost:8088
   cloud:
     config:
       enabled: true
@@ -13,6 +13,8 @@ spring:
         maxInterval: 10000
         maxAttempts: 20
       uri: http://localhost:8088
+      username: user
+      password: 710680c6-93a1-4cab-b7e4-a43714e9051c
     loadbalancer:
       ribbon:
         enabled: false # Ribbon is still the default client-side loadbalancer, desable it

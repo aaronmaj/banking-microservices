@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -21,6 +20,12 @@ import java.util.List;
 public class HomeController {
 
     private final RestTemplate restTemplate;
+
+    @GetMapping
+    public String index(Model model){
+
+        return "home";
+    }
 
     @GetMapping("customers")
     public String home(Model model) {
