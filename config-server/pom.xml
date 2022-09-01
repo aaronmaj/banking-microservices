@@ -15,7 +15,7 @@
 	<name>config-server</name>
 	<description>Configuration Server</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<docker.image.prefix>banking</docker.image.prefix>
 		<spring-cloud.version>2021.0.3</spring-cloud.version>
 	</properties>
