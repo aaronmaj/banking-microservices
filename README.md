@@ -4,7 +4,7 @@
 
 - This project encompasses a set of microservices with `Spring Boot`,`Docker`, `Reactive Spring Boot`, `ReactJs` and `Javascript`.
 - This project encompasses a set of microservices with `Spring Boot`,`Docker`, `Reactive Streams`, `ReactJs` and `Javascript`.
-- The project uses `Java 17` and is based on `Spring Boot 2.7.3` and `Spring Cloud 2021.0.3`.
+- The project uses `Java 17` and is based on `Spring Boot 2.7.5` and `Spring Cloud 2021.0.5`.
 - We use Keycloak as Identity and Access Management Provider
 - It is a compilation of training material on `Web Services`  for microfinances adapted for a `Cloud Native` environment. 
 - The project is built as a `maven multi-modules project`.
